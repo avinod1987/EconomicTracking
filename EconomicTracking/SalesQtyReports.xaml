@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="EconomicTracking.SalesQtyReports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <DockPanel  Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
+        <Grid DockPanel.Dock="Top" Height="152" Width="778">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Content="Export Data..." Height="32" Margin="690,16,-0.1,-0.4" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" Padding="4,2,4,4" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" BorderBrush="{x:Null}" BorderThickness="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3" Width="82"/>
+
+            <TextBlock Grid.Column="1" x:Name="lblFileName" Margin="360,3,0,14" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" HorizontalAlignment="Left" Text="Sales Qty Date : " Width="86"/>
+            <TextBlock Grid.Column="1" x:Name="lblFileName_Copy" Margin="461,22,0,41.6" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" 
+                       HorizontalAlignment="Left" Text=" To " Width="19" RenderTransformOrigin="11.737,0.575" Grid.RowSpan="3"/>
+            <Button Content="Search" Grid.Column="1" HorizontalAlignment="Left" Margin="590,20,0,0" VerticalAlignment="Top" Width="75" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Click="Button_Click_1" Height="22" />
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="480,20,0,0" VerticalAlignment="Top" Name="dtSalesTo" Height="24" Width="102"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="360,20,0,0" VerticalAlignment="Top" Name="dtSalesFrom" Height="24" Width="102"/>
+            <ComboBox x:Name="cuscombo" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146" Margin="21,20,0,0" Loaded="cuscombo_Loaded"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="388,5,0,0" VerticalAlignment="Top" Name="dtsalesfrommonth" Height="24" Width="102" Grid.Row="2"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="504,5,0,0" VerticalAlignment="Top" Name="dtsalesfromYear" Height="24" Width="102" Grid.Row="2"/>
+
+            <Button Content="SalesQtyByMonth" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" x:Name="salesqtybymonthbtn" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Margin="606,5,0,0" Grid.Row="2" Click="salesqtybymonthbtn_Click"/>
+            <CheckBox x:Name="chkSelectAll" Visibility="Visible" Content="Select All" Grid.Column="1" HorizontalAlignment="Left" Margin="180,92,0,0" Grid.Row="2" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
+            <ListView x:Name="lstItems" SelectionMode="Multiple" ItemsSource="{Binding}"  Loaded="lstItems_Loaded" Grid.Column="1" Margin="180,16,435.6,16" Grid.RowSpan="3" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemTemplate> 
+                    <DataTemplate>
+                        <VirtualizingStackPanel>
+                            <CheckBox x:Name="chkcus" Content="{Binding Path=CustomerAssemblyId}" Loaded="CheckBox_Loaded" Checked="chkcus_Checked" Unchecked="chkcus_Unchecked"></CheckBox>
+                        </VirtualizingStackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListBox.Items>
+                    
+                </ListBox.Items>
+            </ListView>
+        </Grid>
+        <GroupBox x:Name="salesqtygroup" Header="Sales Quality Details" Margin="10,7,10,264" Visibility="Hidden" >
+            <DataGrid x:Name="salesqtydatagrid" HorizontalAlignment="Left" VerticalAlignment="Top" EnableRowVirtualization="False" ColumnWidth="*" />
+        </GroupBox>
+
+
+    </DockPanel>
+</UserControl>

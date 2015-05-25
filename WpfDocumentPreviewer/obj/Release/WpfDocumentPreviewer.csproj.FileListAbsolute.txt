@@ -1,0 +1,15 @@
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\bin\Release\WpfDocumentPreviewer.dll
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\bin\Release\WpfDocumentPreviewer.pdb
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.csprojResolveAssemblyReference.cache
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\Interop.SHDocVw.dll
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.csproj.ResolveComReference.cache
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\PreviewControl.g.cs
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\GeneratedInternalTypeHelper.g.cs
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer_MarkupCompile.cache
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer_MarkupCompile.lref
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\PreviewControl.baml
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.g.resources
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.Properties.Resources.resources
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.csproj.GenerateResource.Cache
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.dll
+D:\Freelance Project -3\Project\EconomicTracking\WpfDocumentPreviewer\obj\Release\WpfDocumentPreviewer.pdb

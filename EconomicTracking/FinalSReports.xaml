@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="EconomicTracking.FinalSReports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="580">
+    <DockPanel  Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Search" Height="24" Margin="214,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" Padding="4,2,4,4" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" BorderBrush="{x:Null}" BorderThickness="0" Grid.Column="1"/>
+            <ComboBox x:Name="cbmReports" Grid.Column="1" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" Width="178" Height="24" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Loaded="cbmReports_Loaded"/>
+            <Button Content="Export Data..." Height="32" Margin="491,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" Padding="4,2,4,4" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" BorderBrush="{x:Null}" BorderThickness="0" Grid.Column="1"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="273*"/>
+                <ColumnDefinition Width="17*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="gridFinalReports" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

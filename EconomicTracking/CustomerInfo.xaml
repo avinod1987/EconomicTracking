@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="EconomicTracking.CustomerInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="524.436" Width="667.669">
+    <Grid>
+        <Label Content="Customer Details" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Height="36" Width="307" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="38,78,0,0" VerticalAlignment="Top" Width="77" FontSize="16" Height="33"/>
+        <Label Content="Location" HorizontalAlignment="Left" Margin="38,126,0,0" VerticalAlignment="Top" Width="77" FontSize="16" Height="33"/>
+        <Label Content="Email Address" HorizontalAlignment="Left" Margin="38,174,0,0" VerticalAlignment="Top" Width="136" FontSize="16" Height="32"/>
+        <Label Content="Company" HorizontalAlignment="Left" Margin="38,212,0,0" VerticalAlignment="Top" Width="102" FontSize="16" Height="32"/>
+        <Label Content="Address" HorizontalAlignment="Left" Margin="38,309,0,0" VerticalAlignment="Top" Width="102" FontSize="16" Height="32"/>
+        <Label Content="Pincode" HorizontalAlignment="Left" Margin="38,389,0,0" VerticalAlignment="Top" Width="102" FontSize="16" Height="32"/>
+        <Label Content="Mobile Number(s)" HorizontalAlignment="Left" Margin="38,260,0,0" VerticalAlignment="Top" Width="174" FontSize="16" Height="32"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="24" Margin="252,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="15"/>
+        <TextBox x:Name="txtLocation" HorizontalAlignment="Left" Height="24" Margin="252,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="15"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="24" Margin="252,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="15"/>
+        <TextBox x:Name="txtCompany" HorizontalAlignment="Left" Height="24" Margin="252,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="15"/>
+        <TextBox x:Name="txtMobile" HorizontalAlignment="Left" Height="24" Margin="252,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="15"/>
+        <TextBox x:Name="txtAddress" HorizontalAlignment="Left" Height="54" Margin="252,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" FontSize="15"/>
+        <TextBox x:Name="txtPincode" HorizontalAlignment="Left" Height="24" Margin="252,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" FontSize="15"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="240,468,0,0" VerticalAlignment="Top" Width="114" Height="31" FontSize="16" FontWeight="Bold" Click="Button_Click"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="409,468,0,0" VerticalAlignment="Top" Width="113" Height="31" FontSize="16" FontWeight="Bold" Click="Button_Click_1"/>
+    </Grid>
+</UserControl>
