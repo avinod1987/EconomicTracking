@@ -65,6 +65,16 @@ namespace EconomicTracking
                             context.Configuration.ValidateOnSaveEnabled = false;
                             int count = 0;
                             var entities = new List<SalesQty>();
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                string cusass1 = row["Part No"].ToString();
+                                DateTime dat1 = Convert.ToDateTime(row["Date"].ToString());
+                                int i = context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date).Count();
+                                if (i > 0)
+                                {
+                                    context.SalesQty.RemoveRange(context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date));
+                                }
+                            }
                                 foreach (DataRow row in dt.Rows)
                                 {
                                     try
@@ -74,14 +84,11 @@ namespace EconomicTracking
                                             lblFileName.Text = "Uploading records to database(" + count + "/" + (dt.Rows.Count ) + ")......";
                                         }));
                                         var saleQty = new SalesQty();
-
                                         string cusass = row["Part No"].ToString();
-                                        DateTime dat = Convert.ToDateTime(row["Date"].ToString());
-                                      context.SalesQty.RemoveRange(context.SalesQty.Where(x=>x.CustomerAssemblyId==cusass&&x.Date.Date==dat.Date));
-                                        
+                                        DateTime dat = Convert.ToDateTime(row["Date"].ToString());  
                                         saleQty.CustomerAssemblyId = row["Part No"].ToString();
                                         saleQty.Date = Convert.ToDateTime(row["Date"].ToString());
-                                        //saleQty.Customer = row["Customer"].ToString();
+                                        saleQty.CustomerName = row["Customer"].ToString();
                                         saleQty.Quantity = row["Qty"] == null && string.IsNullOrEmpty(row["Qty"].ToString()) ? 0 : Convert.ToDecimal(row["Qty"].ToString());
                                         entities.Add(saleQty);
                                     }
@@ -95,12 +102,12 @@ namespace EconomicTracking
                                     }
                                     count++;
                                 }
-                                var options = new BulkInsertOptions
-                                {
-                                    EnableStreaming = true
-                                };
-                            //context.BulkInsert(entities, options);
-                            EFBatchOperation.For(context, context.SalesQty).InsertAll(entities); 
+                            //    var options = new BulkInsertOptions
+                            //    {
+                            //        EnableStreaming = true
+                            //    };
+                            ////context.BulkInsert(entities, options);
+                            //EFBatchOperation.For(context, context.SalesQty).InsertAll(entities); 
                             context.SaveChanges();
                         }
                     };
@@ -123,7 +130,7 @@ namespace EconomicTracking
                                        RunWorkerCompletedEventArgs e)
         {
             lblFileName.Text = "Data uploaded successfully.......";
-            Xceed.Wpf.Toolkit.MessageBox.Show("Data uploaded successfully.......", "BOM Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            Xceed.Wpf.Toolkit.MessageBox.Show("Data uploaded successfully.......", "SalesQty Info", MessageBoxButton.OK, MessageBoxImage.Information);
             worker.Dispose();
             worker = null;
             GC.Collect();

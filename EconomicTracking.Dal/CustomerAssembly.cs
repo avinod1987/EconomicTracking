@@ -12,10 +12,20 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string CustAssyNo { get; set; }
+        public string Customer { get; set; }
         public string CustAssyName { get; set; }
         public string LocalAssyNo { get; set; }
         public string LocalAssyName { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal Quantity { get; set; }
+
+        public string SettlementRef { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal TotalCost { get; set; }
+
+        public string Family { get; set; }
+
+        public string Category { get; set; }
         public List<BillOfMaterial> BOM { get; set; }
     }
 }

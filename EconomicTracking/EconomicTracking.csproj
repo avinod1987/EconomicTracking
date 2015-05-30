@@ -225,6 +225,9 @@
     <Compile Include="ReciepyReports.xaml.cs">
       <DependentUpon>ReciepyReports.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recovery.xaml.cs">
+      <DependentUpon>Recovery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SalesQtyReports.xaml.cs">
       <DependentUpon>SalesQtyReports.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ReciepyReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recovery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

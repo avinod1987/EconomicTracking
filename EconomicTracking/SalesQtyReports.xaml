@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
     <DockPanel  Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
-        <Grid DockPanel.Dock="Top" Height="152" Width="778">
+        <Grid DockPanel.Dock="Top" Height="164" Width="778">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -24,14 +24,14 @@
             <Button Content="Search" Grid.Column="1" HorizontalAlignment="Left" Margin="590,20,0,0" VerticalAlignment="Top" Width="75" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Click="Button_Click_1" Height="22" />
             <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="480,20,0,0" VerticalAlignment="Top" Name="dtSalesTo" Height="24" Width="102"/>
             <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="360,20,0,0" VerticalAlignment="Top" Name="dtSalesFrom" Height="24" Width="102"/>
-            <ComboBox x:Name="cuscombo" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146" Margin="21,20,0,0" Loaded="cuscombo_Loaded"/>
+            <ComboBox x:Name="cuscombo" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146" Margin="10,0,0,0" Loaded="cuscombo_Loaded" SelectionChanged="cuscombo_SelectionChanged" Grid.Row="2"/>
             <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="388,5,0,0" VerticalAlignment="Top" Name="dtsalesfrommonth" Height="24" Width="102" Grid.Row="2"/>
             <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="504,5,0,0" VerticalAlignment="Top" Name="dtsalesfromYear" Height="24" Width="102" Grid.Row="2"/>
 
             <Button Content="SalesQtyByMonth" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" x:Name="salesqtybymonthbtn" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Margin="606,5,0,0" Grid.Row="2" Click="salesqtybymonthbtn_Click"/>
             <CheckBox x:Name="chkSelectAll" Visibility="Visible" Content="Select All" Grid.Column="1" HorizontalAlignment="Left" Margin="180,92,0,0" Grid.Row="2" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-            <ListView x:Name="lstItems" SelectionMode="Multiple" ItemsSource="{Binding}"  Loaded="lstItems_Loaded" Grid.Column="1" Margin="180,16,435.6,16" Grid.RowSpan="3" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ListView.ItemTemplate> 
+            <ListView x:Name="lstItems" SelectionMode="Multiple" ItemsSource="{Binding}"  Loaded="lstItems_Loaded" Grid.Column="1" Margin="180,22,435.6,28" Grid.RowSpan="3" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="lstItems_SelectionChanged">
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <VirtualizingStackPanel>
                             <CheckBox x:Name="chkcus" Content="{Binding Path=CustomerAssemblyId}" Loaded="CheckBox_Loaded" Checked="chkcus_Checked" Unchecked="chkcus_Unchecked"></CheckBox>
@@ -39,9 +39,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListBox.Items>
-                    
                 </ListBox.Items>
             </ListView>
+            <Label Grid.ColumnSpan="2" Content="CustomerName" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Width="146"/>
+            <Label Content="CustomerAssemblyId" RenderTransformOrigin="-2.646,-11.466" Grid.Column="1" Margin="180,0,472.6,19.6"/>
         </Grid>
         <GroupBox x:Name="salesqtygroup" Header="Sales Quality Details" Margin="10,7,10,264" Visibility="Hidden" >
             <DataGrid x:Name="salesqtydatagrid" HorizontalAlignment="Left" VerticalAlignment="Top" EnableRowVirtualization="False" ColumnWidth="*" />

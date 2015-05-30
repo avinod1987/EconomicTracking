@@ -12,6 +12,8 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string CustomerAssemblyId { get; set; }
+
+        public string CustomerName { get; set; }
         public DateTime Date { get; set; }
         public decimal Quantity { get; set; }
     }

@@ -9,6 +9,7 @@ namespace EconomicTracking.Dal
     public class CustomerAssemblyModel
     {
         public int Id { get; set; }
+        //public string Customer { get; set; }
         public string CustAssyNo { get; set; }
         public string CustAssyName { get; set; }
         public string LocalAssyNo { get; set; }

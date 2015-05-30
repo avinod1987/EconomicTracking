@@ -20,13 +20,28 @@ namespace EconomicTracking.Dal
         public string LocalPartName { get; set; }
         public int Quantity { get; set; }
         public string UOM { get; set; }
+        public string RMUOM { get; set; }
         public string RawMaterial { get; set; }
         public string Commodity { get; set; }
         public decimal BOMQuantity { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal TotalRMqty { get; set; }
         public string Scarp { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal ScrapQuantity { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal ChildPartRate { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal ToalCost { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal Scraptotalqty { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal TotalcostinPurCurr { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ChildpartCost { get; set; }
         public string CurrencyCode { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal Exchangerate { get; set; }
+
     }
 }

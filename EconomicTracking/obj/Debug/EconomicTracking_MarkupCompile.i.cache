@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\EC\Repos\EconomicTracking\App.xaml
-12660203684
+131006342543
 21337039290
-25-2059153392
+26759845746
 511815189268
-BOMReports.xaml;CustomerInfo.xaml;FinalSReports.xaml;MainWindow.xaml;ReciepyReports.xaml;SalesQtyReports.xaml;Settings.xaml;SettlementControl.xaml;SettlementReports.xaml;UploadBom.xaml;UploadFinalReport.xaml;UploadSalesQty.xaml;
+BOMReports.xaml;CustomerInfo.xaml;FinalSReports.xaml;MainWindow.xaml;ReciepyReports.xaml;Recovery.xaml;SalesQtyReports.xaml;Settings.xaml;SettlementControl.xaml;SettlementReports.xaml;UploadBom.xaml;UploadFinalReport.xaml;UploadSalesQty.xaml;
 
-True
+False
 

@@ -61,12 +61,13 @@ namespace EconomicTracking.Dal
             var materials = new List<Material> { 
                 new Material{MaterialName="Steel"},new Material{MaterialName="Bronze"},new Material{MaterialName="Aluminum"}
                 ,new Material{MaterialName="Copper"},new Material{MaterialName="Zinc"},new Material{MaterialName="Rubber"},
-                new Material{MaterialName="Crude Oil"},new Material{MaterialName="Plastic- Grade 1"},
+                new Material{MaterialName="Petroleum"},new Material{MaterialName="Plastic- Grade 1"},
                 new Material{MaterialName="Plastic- Grade 2"},new Material{MaterialName="Plastic- Grade 3"}
             };
             var Scraps = new List<Scrap> { 
-                new Scrap{ScrapName="HR Scrap"},new Scrap{ScrapName="CR Scrap"},new Scrap{ScrapName="Copper Scrap"}
-                ,new Scrap{ScrapName="Plastic Scrap"},new Scrap{ScrapName="Oil Scrap"}
+                //new Scrap{ScrapName="HR Scrap"},new Scrap{ScrapName="CR Scrap"},
+                new Scrap{ScrapName="CopperScrap"},new Scrap{ScrapName="AluminiumScrap"}
+                ,new Scrap{ScrapName="PlasticScrap"},new Scrap{ScrapName="OilScrap"}
                 ,new Scrap{ScrapName="Rubber Scrap"},new Scrap{ScrapName="Bronze scrap"}
                 ,new Scrap{ScrapName="Brass scrap"},new Scrap{ScrapName="SS scrap"},new Scrap{ScrapName="Cast Iron Scrap"}
             };

@@ -29,3 +29,34 @@ D:\Freelance Project -3\Project\EconomicTracking\EconomicTracking.Dal\bin\Debug\
 D:\Freelance Project -3\Project\EconomicTracking\EconomicTracking.Dal\bin\Debug\EntityFramework.BulkInsert.pdb
 D:\Freelance Project -3\Project\EconomicTracking\EconomicTracking.Dal\bin\Debug\EntityFramework.BulkInsert.SqlServerCe.pdb
 D:\Freelance Project -3\Project\EconomicTracking\EconomicTracking.Dal\bin\Debug\EntityFramework.MappingAPI.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\AutoMapper.Net4.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EconomicTracking.mdf
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EconomicTracking_log.ldf
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EconomicTracking.Dal.dll.config
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EconomicTracking.Dal.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EconomicTracking.Dal.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\AutoMapper.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.BulkInsert.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.BulkInsert.SqlServerCe.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.MappingAPI.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.SqlServer.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.Utilities.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\KellermanSoftware.Compare-NET-Objects.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\Newtonsoft.Json.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\nunit.framework.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\Repository.dll
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\AutoMapper.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\AutoMapper.xml
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\AutoMapper.Net4.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.xml
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.BulkInsert.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.BulkInsert.SqlServerCe.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.MappingAPI.pdb
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\EntityFramework.SqlServer.xml
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\KellermanSoftware.Compare-NET-Objects.xml
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\Newtonsoft.Json.xml
+E:\EC\Repos\EconomicTracking.Dal\bin\Debug\nunit.framework.xml
+E:\EC\Repos\EconomicTracking.Dal\obj\Debug\EconomicTracking.Dal.dll
+E:\EC\Repos\EconomicTracking.Dal\obj\Debug\EconomicTracking.Dal.pdb
+E:\EC\Repos\EconomicTracking.Dal\obj\Debug\EconomicTracking.Dal.csprojResolveAssemblyReference.cache

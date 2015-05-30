@@ -27,6 +27,7 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string MaterialName { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal Rate { get; set; }
          [NotMapped]
         public string Settlement_Id { get; set; }
@@ -36,6 +37,7 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string ScrapName { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal Rate { get; set; }
          [NotMapped]
         public string Settlement_Id { get; set; }
@@ -45,6 +47,7 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string CurrencyCode { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal Rate { get; set; }
          [NotMapped]
         public string Settlement_Id { get; set; }

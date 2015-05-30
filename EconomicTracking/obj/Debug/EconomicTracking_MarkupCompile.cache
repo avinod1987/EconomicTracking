@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Freelance Project -3\Project\EconomicTracking\EconomicTracking\obj\Debug\
+E:\EC\Repos\EconomicTracking\obj\Debug\
 EconomicTracking
 none
 false
 DEBUG;TRACE
-D:\Freelance Project -3\Project\EconomicTracking\EconomicTracking\App.xaml
-10950535395
-
-20-87179048
-51-195308374
-BOMReports.xaml;CustomerInfo.xaml;FinalSReports.xaml;MainWindow.xaml;SalesQtyReports.xaml;SettlementControl.xaml;SettlementReports.xaml;UploadBom.xaml;UploadFinalReport.xaml;UploadSalesQty.xaml;
+E:\EC\Repos\EconomicTracking\App.xaml
+131006342543
+21337039290
+22-1937996007
+511815189268
+BOMReports.xaml;CustomerInfo.xaml;FinalSReports.xaml;MainWindow.xaml;ReciepyReports.xaml;Recovery.xaml;SalesQtyReports.xaml;Settings.xaml;SettlementControl.xaml;SettlementReports.xaml;UploadBom.xaml;UploadFinalReport.xaml;UploadSalesQty.xaml;
 
 False
 

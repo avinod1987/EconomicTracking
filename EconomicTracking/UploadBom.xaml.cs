@@ -108,7 +108,7 @@ namespace EconomicTracking
                                         int colum = 1;
                                         removeColumns = new List<string>();
                                         //dt.Columns.RemoveAt(dt.Columns.Count - 1);
-                                        dt = dt.AsEnumerable().Skip(2).CopyToDataTable();
+                                        dt = dt.AsEnumerable().Skip(3).CopyToDataTable();
                                         dt.AcceptChanges();
                                         foreach (DataColumn col in dt.Columns)
                                         {
@@ -130,39 +130,64 @@ namespace EconomicTracking
                                         RemoveNullColumnFromDataTable(dt);
                                         custAssm = new CustomerAssembly();
                                         var custRow = custDt.Rows[0];
-                                        string s = custRow["Cust Assy No"].ToString().Trim();
-                                        MessageBoxResult messboxreslt = System.Windows.MessageBox.Show(s +" Alredy Exists Do You Want to Continue Click No It will be skipped from Upload", "Confirmation", System.Windows.MessageBoxButton.YesNo);
-                                        if (messboxreslt == MessageBoxResult.Yes) { 
-                                        context.CustomerAssembly.RemoveRange(context.CustomerAssembly.Where(x => x.CustAssyNo == s));
-                                        context.BillOfMaterial.RemoveRange(context.BillOfMaterial.Where(x => x.CustAssyNo == s));
+                                        string cusass = custRow["Cust Assy No"].ToString().Trim();
+                                        string cus=custRow["Customer"].ToString().Trim();
+                                      int k=  (from c in context.CustomerAssembly
+                                            where (c.CustAssyNo==cusass && c.Customer==cus)
+                                                   select c).Count();
+                                        //int k = context.CustomerAssembly.Select(x => x.CustAssyNo == cusass && x.Customer == cus).Count();
+                                        MessageBoxResult messboxreslt = MessageBoxResult.No;
+                                        if (k > 0) {
+
+                                            messboxreslt= System.Windows.MessageBox.Show(cusass + "   " + cus + " Alredy Exists Do You Want to Continue Click No to be skipped from Upload", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+                                            if (messboxreslt == MessageBoxResult.Yes) { 
+                                            context.CustomerAssembly.RemoveRange(context.CustomerAssembly.Where(x => x.CustAssyNo == cus && x.Customer == cus));
+                                            context.BillOfMaterial.RemoveRange(context.BillOfMaterial.Where(x => x.CustAssyNo == cus));
+                                            }
+                                        }
+                                        if (messboxreslt == MessageBoxResult.Yes||k<=0) {
+                                        custAssm.Customer = custRow["Customer"].ToString().Trim();
                                         custAssm.CustAssyNo = custRow["Cust Assy No"].ToString().Trim();
                                         custAssm.CustAssyName = custRow["Cust Assy Name"].ToString().Trim();
                                         custAssm.LocalAssyNo = custRow["Local Assy No"].ToString().Trim();
                                         custAssm.LocalAssyName = custRow["Local Assy Name"].ToString().Trim();
                                         custAssm.Quantity = !string.IsNullOrEmpty(custRow["QtyCparts"].ToString().Trim()) ? Convert.ToDecimal(custRow["QtyCparts"].ToString().Trim()) : 0;
+                                        custAssm.SettlementRef = custRow["Settlement Ref"].ToString().Trim();
+                                        custAssm.TotalCost = !string.IsNullOrEmpty(custRow["Total Cost"].ToString().Trim()) ? Convert.ToDecimal(custRow["Total Cost"].ToString().Trim()) : 0;
+                                        custAssm.Family = custRow["Family"].ToString().Trim();
+                                        custAssm.Category = custRow["Category"].ToString().Trim();
                                         //custAssm.Quantity = custRow["Settlement Ref"].ToString().Trim());
                                         custAssm.BOM = new List<BillOfMaterial>();
                                         foreach (DataRow row in dt.Rows)
                                         {
                                             var bom = new BillOfMaterial();
                                             bom.CustAssyNo = custAssm.CustAssyNo;
-                                            bom.CustomerPartNo =
-                                                bom.CustomerPartName = string.IsNullOrEmpty(row["Cust Part Name"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
+                                            bom.CustomerPartNo = string.IsNullOrEmpty(row["Cust Part No"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
+                                            bom.CustomerPartName = string.IsNullOrEmpty(row["Cust Part Name"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
                                             bom.LocalPartNo = string.IsNullOrEmpty(row["Local Part No"].ToString().Trim()) ? "" : row["Local Part No"].ToString().Trim();
                                             //bom.SettlementRef = string.IsNullOrEmpty(row["Settlement Ref"].ToString().Trim()) ? "" : row["Local Part No"].ToString().Trim();
                                             bom.LocalPartName = string.IsNullOrEmpty(row["Local Part Name"].ToString().Trim()) ? "" : row["Local Part Name"].ToString().Trim();
                                             bom.Quantity = string.IsNullOrEmpty(row["Qty In Assy"].ToString().Trim()) ? 0 : Convert.ToInt32(row["Qty In Assy"].ToString().Trim());
-                                            bom.UOM = string.IsNullOrEmpty(row["UOM_1"].ToString().Trim()) ? "" : row["UOM_1"].ToString().Trim();
+                                            bom.UOM = string.IsNullOrEmpty(row["UOM"].ToString().Trim()) ? "" : row["UOM"].ToString().Trim();
+                                            bom.RMUOM = string.IsNullOrEmpty(row["RM_UOM"].ToString().Trim()) ? "" : row["RM_UOM"].ToString().Trim();
                                             bom.RawMaterial = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "" : row["RM Code"].ToString().Trim();
-                                            bom.Commodity = string.IsNullOrEmpty(row["Commodity"].ToString().Trim()) ? "" : row["Commodity"].ToString().Trim();
+                                            bom.Commodity = string.IsNullOrEmpty(row["RMCommodity"].ToString().Trim()) ? "" : row["RMCommodity"].ToString().Trim();
                                             bom.BOMQuantity = string.IsNullOrEmpty(row["RM Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["RM Qty/part"].ToString().Trim());
+                                            bom.TotalRMqty = string.IsNullOrEmpty(row["Total RM Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total RM Qty/Assy"].ToString().Trim());
                                             bom.Scarp = string.IsNullOrEmpty(row["Scrap Commodity"].ToString().Trim()) ? "" : row["Scrap Commodity"].ToString().Trim();
                                             bom.ScrapQuantity = string.IsNullOrEmpty(row["Scrap Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Scrap Qty/part"].ToString().Trim());
-                                            bom.ChildPartRate = string.IsNullOrEmpty(row["Child part rate"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Child part rate"].ToString().Trim());
+                                            bom.ChildPartRate = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
                                             //bom.ToalCost = Convert.ToDecimal(row["Total cost"].ToString());
-                                            bom.ToalCost = string.IsNullOrEmpty(row["Total cost in INR"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Cost in Purchasing Currency"].ToString().Trim());
+                                            bom.ToalCost = string.IsNullOrEmpty(row["Total cost of child parts(INR)"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total cost of child parts(INR)"].ToString().Trim());
+                                            bom.TotalcostinPurCurr = string.IsNullOrEmpty(row["Total Cost in Purchasing Currency"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Cost in Purchasing Currency"].ToString().Trim());
+                                            bom.Exchangerate = string.IsNullOrEmpty(row["Exchange rate"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Exchange rate"].ToString().Trim());
+                                            bom.ChildpartCost = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
                                             //bom.CurrencyCode = row["Purchasing Currency"].ToString();
-                                            bom.CurrencyCode = string.IsNullOrEmpty(row["Total Cost in Purchasing Currency"].ToString().Trim()) ? "" : row["Purchasing Currency"].ToString().Trim();
+                                            bom.CurrencyCode = string.IsNullOrEmpty(row["Purchasing Currency"].ToString().Trim()) ? "" : row["Purchasing Currency"].ToString().Trim();
+                                            bom.Scraptotalqty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
+                                            //bom.TotalScrapQty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
+                                            
+
                                             custAssm.BOM.Add(bom);
 
                                         }

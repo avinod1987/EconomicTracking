@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="346.241" Width="450">
-    <Grid HorizontalAlignment="Left" Margin="0,0,0.2,0.4" Width="500">
-        <ComboBox x:Name="cbmBom" HorizontalAlignment="Left" Margin="51,22,0,0" VerticalAlignment="Top" Width="130" Height="32" Loaded="ComboBox_Loaded"/>
-        <ComboBox x:Name="cbmbomsetref" HorizontalAlignment="Left" Margin="200,22,0,0" VerticalAlignment="Top" Width="130" Height="32"></ComboBox>
-        <Button x:Name="bomreportbtn" Content="Get Reports" Height="32" Margin="350,22,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" Padding="4,2,4,4" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" BorderBrush="{x:Null}" BorderThickness="1"/>
-        <Label Content="CustomerAssemblyId" HorizontalAlignment="Left" Margin="51,0,0,0" VerticalAlignment="Top" Width="130"/>
-        <Label Content="CustomerSettlementId" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Width="130"/>
+    <Grid HorizontalAlignment="Left" Margin="0,0,-82.4,0.4" Width="532">
+        <ComboBox x:Name="cbmBom" HorizontalAlignment="Left" Margin="130,26,0,0" VerticalAlignment="Top" Width="130" Height="32" SelectionChanged="cbmBom_SelectionChanged"/>
+        <ComboBox x:Name="cbmbomsetref" HorizontalAlignment="Left" Margin="265,26,0,0" VerticalAlignment="Top" Width="130" Height="32" RenderTransformOrigin="1.117,0.514"></ComboBox>
+        <Button x:Name="bomreportbtn" Content="Get Reports" Height="32" Margin="400,22,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" Padding="4,2,4,4" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" BorderBrush="{x:Null}" BorderThickness="1"/>
+        <Label Content="CustomerAssemblyId" HorizontalAlignment="Left" Margin="130,4,0,0" VerticalAlignment="Top" Width="130"/>
+        <Label Content="CustomerSettlementId" HorizontalAlignment="Left" Margin="265,4,0,0" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Customer" HorizontalAlignment="Left" Margin="26,6,0,0" VerticalAlignment="Top" Width="88"/>
+        <ComboBox x:Name="cuscombo" HorizontalAlignment="Left" Margin="26,32,0,0" VerticalAlignment="Top" Width="99" Loaded="cuscombo_Loaded" SelectionChanged="cuscombo_SelectionChanged"/>
     </Grid>
 </UserControl>

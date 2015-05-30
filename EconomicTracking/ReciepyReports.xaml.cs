@@ -40,21 +40,24 @@ namespace EconomicTracking
             EconomicsTrackingDbContext context = new EconomicsTrackingDbContext();
             sList = context.BillOfMaterial.Select(x => x).Where(x=>x.CustAssyNo==CusAssIdCombo.SelectedItem.ToString()).ToList();
             //QuantityInAssembly = d.Sum(x => x.Quantity)
-
+            //var comditylisttemp=sList.Select(x=>new{x.Commodity,x.BOMQuantity,x.Quantity,})
+            //, TotalQty = d.Sum(x => x.BOMQuantity) * d.Sum(x => x.Quantity)
+            //, TotalQty = d.Sum(x => x.ScrapQuantity) * d.Sum(x => x.Quantity)
             var comditylist = (from s in sList
                                where s.LocalPartName != string.Empty && s.LocalPartNo != string.Empty && s.Quantity != 0 && s.UOM != ""
-                               group s by new { commodity = s.Commodity, uom = s.UOM } into d
-                               select new { CommodityName = d.Key.commodity, UOM = d.Key.uom, RamMaterialWeigth= d.Sum(x => x.BOMQuantity), TotalQty = d.Sum(x => x.BOMQuantity) * d.Sum(x => x.Quantity) }).OrderBy(x => x.CommodityName);
+                               group s by new { commodity = s.Commodity, uom = s.RMUOM.ToLower() == "g" || s.RMUOM.ToLower() == "gm" ? "KG" : s.RMUOM.ToLower() == "ml" || s.RMUOM.ToLower() == "m" ? "LITER" : s.RMUOM.ToUpper() } into d
+                               select new { CommodityName = d.Key.commodity, UOM = d.Key.uom, RamMaterialWeigth = d.Sum(x => x.RMUOM.ToLower() == "g" || x.RMUOM == "gm" ? (x.TotalRMqty) / 100 : x.RMUOM.ToLower() == "m" || x.RMUOM == "ml" ? (x.TotalRMqty) / 1000 : x.TotalRMqty) }).OrderBy(x => x.CommodityName);
             
             var scraplist = (from s in sList
                              where s.LocalPartName != string.Empty && s.LocalPartNo != string.Empty && s.Quantity != 0 &&s.UOM!=""
-                             group s by new { commodity = s.Commodity, uom = s.UOM } into d
-                             select new { CommodityName = d.Key.commodity, UOM = d.Key.uom, ScrapQuanity = d.Sum(x => x.ScrapQuantity), TotalQty = d.Sum(x => x.ScrapQuantity) * d.Sum(x => x.Quantity) }).OrderBy(x => x.CommodityName);
+                             group s by new { commodity = s.Commodity, uom = s.RMUOM.ToLower() == "g" || s.RMUOM.ToLower() == "gm" ? "KG" : s.RMUOM.ToLower() == "ml" || s.RMUOM.ToLower() == "m" ? "LITER" : s.RMUOM.ToUpper() } into d
+                             select new { CommodityName = d.Key.commodity, UOM = d.Key.uom, ScrapQuanity = d.Sum(x => x.RMUOM.ToLower() == "g" || x.RMUOM == "gm" ? (x.Scraptotalqty) / 100 : x.RMUOM.ToLower() == "m" || x.RMUOM == "ml" ? (x.Scraptotalqty) / 1000 : x.Scraptotalqty) }).OrderBy(x => x.CommodityName);
             var currencylist = (from s in sList
+                                where s.ToalCost!=0
                              group s by new { Currency = s.CurrencyCode } into d
-                                select new { CurrencyType = d.Key.Currency, ChildPartRate = d.Sum(x => x.ChildPartRate), TotlInPurCurrINR = d.Sum(x => x.ChildPartRate) * d.Sum(x => x.Quantity) }).Where(x => x.TotlInPurCurrINR != 0).OrderBy(x => x.CurrencyType);
+                                select new { CurrencyType = d.Key.Currency, CurrencyInINR = d.Sum(x => x.ToalCost), TotlInPurCurr = d.Sum(x => x.TotalcostinPurCurr) }).Where(x => x.TotlInPurCurr != 0).OrderBy(x => x.CurrencyType);
 
-            var overhead = context.BillOfMaterial.Where(x => x.CustAssyNo == CusAssIdCombo.SelectedItem.ToString() && x.LocalPartNo == "" && x.LocalPartName == "" && x.Quantity == 0&&x.UOM=="").Select(t => new { OverHeadType = t.CustomerPartName, OHSetmtCurency = t.ToalCost, CurrencyCode = t.CurrencyCode }).ToList();
+            var overhead = context.BillOfMaterial.Where(x => x.CustAssyNo == CusAssIdCombo.SelectedItem.ToString() && x.LocalPartNo == "" && x.LocalPartName == "" && x.Quantity == 0 && x.UOM == "").Select(t => new { OverHeadType = t.CustomerPartName, OHSetmtCurencyINR = t.ToalCost, OHSetmtCurency = t.TotalcostinPurCurr, CurrencyCode = t.CurrencyCode }).ToList();
             //d.Sum(x => x.ToalCost)
             
             if (comditylist != null) {

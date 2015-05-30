@@ -28,13 +28,13 @@ namespace EconomicTracking
     {
         List<string> li = new List<string>();
         DataTable table = new DataTable();
+        EconomicsTrackingDbContext context = new EconomicsTrackingDbContext();
         private BackgroundWorker worker = null;
          
         public SalesQtyReports()
         {
             InitializeComponent();
-            var context = new EconomicsTrackingDbContext();
-            lstItems.ItemsSource = context.SalesQty.ToList();
+            
         }
 
 
@@ -263,7 +263,7 @@ namespace EconomicTracking
         private void cuscombo_Loaded(object sender, RoutedEventArgs e)
         {
             var context = new EconomicsTrackingDbContext();
-            cuscombo.ItemsSource = context.SalesQty.Select(x => x.CustomerAssemblyId).Distinct().ToList();
+            cuscombo.ItemsSource = context.SalesQty.Select(x => x.CustomerName).Distinct().ToList();
         }
 
         private void listcus_Loaded(object sender, RoutedEventArgs e)
@@ -292,7 +292,7 @@ namespace EconomicTracking
 
         private void CheckBox_Loaded(object sender, RoutedEventArgs e)
         {
-            var context = new EconomicsTrackingDbContext();
+            
             this.DataContext = context.SalesQty.Select(x => x.CustomerAssemblyId).ToList();
             //lstItems.ItemsSource = context.SalesQty.Select(x => x.CustomerAssemblyId).ToList();
         }
@@ -302,7 +302,7 @@ namespace EconomicTracking
             System.Windows.Controls.CheckBox p = (System.Windows.Controls.CheckBox)sender;
             li.Add(p.Content.ToString());
 
-            Xceed.Wpf.Toolkit.MessageBox.Show(p.Content.ToString());
+            //Xceed.Wpf.Toolkit.MessageBox.Show(p.Content.ToString());
             
         }
 
@@ -311,7 +311,19 @@ namespace EconomicTracking
             System.Windows.Controls.CheckBox p = (System.Windows.Controls.CheckBox)sender;
             li.Remove(p.Content.ToString());
 
-            Xceed.Wpf.Toolkit.MessageBox.Show(p.Content.ToString());
+            //Xceed.Wpf.Toolkit.MessageBox.Show(p.Content.ToString());
+        }
+
+        private void lstItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cuscombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            lstItems.ItemsSource = context.SalesQty.Where(x=>x.CustomerName==cuscombo.SelectedItem.ToString()).ToList();
+
         }
 
     }

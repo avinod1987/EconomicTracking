@@ -20,7 +20,9 @@ namespace EconomicTracking.Dal
         public string FromPeriod { get; set; }
         public string ToPeriod { get; set; }
         public decimal EffectiveSalesQuantity { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal Recovery { get; set; }
+        [DataType("decimal(18,4)")]
         public decimal TotalRecovery { get; set; }
     }
 }

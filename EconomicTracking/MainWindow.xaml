@@ -25,6 +25,7 @@
                         <MenuItem Header="Sales Quantity Reports" Click="SalesQtyReports_Click" />
                         <MenuItem Header="Bill of Material Reports" Click="BOMReports_Click" Margin="0,0,-0.4,0" />
                         <MenuItem Header="Receipe Report" Click="Receipe_Click"/>
+                        <MenuItem x:Name="Recovery" Header="Recovery"  Click="Recovery_Click"/>
                         <MenuItem Header="Final Reports" Click="FinalSReports_Click" />
                     </MenuItem>
                 </Menu>

@@ -18,3 +18,13 @@ D:\Freelance Project -3\Project\EconomicTracking\WPF.MDI\obj\Debug\Themes\Generi
 D:\Freelance Project -3\Project\EconomicTracking\WPF.MDI\obj\Debug\WPF.MDI.g.resources
 D:\Freelance Project -3\Project\EconomicTracking\WPF.MDI\obj\Debug\WPF.MDI.dll
 D:\Freelance Project -3\Project\EconomicTracking\WPF.MDI\obj\Debug\WPF.MDI.pdb
+E:\EC\Repos\WPF.MDI\bin\Debug\WPF.MDI.dll
+E:\EC\Repos\WPF.MDI\bin\Debug\WPF.MDI.pdb
+E:\EC\Repos\WPF.MDI\obj\Debug\WPF.MDI.csprojResolveAssemblyReference.cache
+E:\EC\Repos\WPF.MDI\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\EC\Repos\WPF.MDI\obj\Debug\WPF.MDI_MarkupCompile.cache
+E:\EC\Repos\WPF.MDI\obj\Debug\WPF.MDI_MarkupCompile.lref
+E:\EC\Repos\WPF.MDI\obj\Debug\Themes\Generic.baml
+E:\EC\Repos\WPF.MDI\obj\Debug\WPF.MDI.g.resources
+E:\EC\Repos\WPF.MDI\obj\Debug\WPF.MDI.dll
+E:\EC\Repos\WPF.MDI\obj\Debug\WPF.MDI.pdb

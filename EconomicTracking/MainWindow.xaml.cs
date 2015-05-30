@@ -179,6 +179,20 @@ namespace EconomicTracking
 
         }
 
+        private void Recovery_Click(object sender, RoutedEventArgs e)
+        {
+            Container.Children.Add(new MdiChild()
+            {
+                Title = "Receipe Reports",
+                Content = new Recovery(),
+                Height = 600,
+                Width = 800
+            });
+
+        }
+
+        //Recovery
+
 
 
     }
