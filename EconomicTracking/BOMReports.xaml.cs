@@ -49,11 +49,15 @@ namespace EconomicTracking
                     {
                         
                         var cust = new CustomerAssemblyModel();
+                        cust.Family = item.Family;
+                        cust.TotalCost = item.TotalCost;
+                        cust.SettlementRef = item.SettlementRef;
+                        cust.Category = item.Category;
                         cust.CustAssyNo = item.CustAssyNo;
                         cust.CustAssyName = item.CustAssyName;
                         cust.LocalAssyNo = item.LocalAssyNo;
                         cust.LocalAssyName = item.LocalAssyName;
-                        //cust.Customer = item.Customer;
+                        cust.Customer = item.Customer;
                         cust.Quantity = item.Quantity;
                         cust.BOM = new List<BillOfMaterialModel>();
                         item.BOM.ForEach(x =>

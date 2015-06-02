@@ -39,8 +39,9 @@
             <GroupBox x:Name="OverHeadsgrp" Header="OverHead Details" HorizontalAlignment="Right" Width="363" Margin="0,335,170,71">
                 <DataGrid x:Name="OverHeadgrid" HorizontalAlignment="Right" Margin="0,0,-1.8,-0.2" Width="345" Visibility="Hidden" ></DataGrid>
             </GroupBox>
+            <Button Content="ShowReport" HorizontalAlignment="Left" Margin="509,46,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         </Grid>
-        <Button x:Name="recepiereportbtn" Content="Show Report" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Hidden" Margin="426,56,0,0"/>
+        <Button x:Name="recepiereportbtn" Content="Show Report" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Hidden" Margin="426,56,0,0" Click="recepiereportbtn_Click"/>
     </Grid>
 
 

@@ -131,3 +131,6 @@ E:\EC\Repos\WPFReportTest\obj\x86\Debug\WPFReportTest.Properties.Resources.resou
 E:\EC\Repos\WPFReportTest\obj\x86\Debug\WPFReportTest.csproj.GenerateResource.Cache
 E:\EC\Repos\WPFReportTest\obj\x86\Debug\WPFReportTest.exe
 E:\EC\Repos\WPFReportTest\obj\x86\Debug\WPFReportTest.pdb
+E:\EC\Repos\WPFReportTest\bin\Debug\CrystalDecisions.CrystalReports.Design.dll
+E:\EC\Repos\WPFReportTest\obj\x86\Debug\RdlCompile.cache
+E:\EC\Repos\WPFReportTest\obj\x86\Debug\RdlCompile.compiled

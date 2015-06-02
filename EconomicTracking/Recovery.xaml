@@ -7,10 +7,14 @@
              d:DesignHeight="470.4" d:DesignWidth="777">
     <DockPanel  Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
         <Grid DockPanel.Dock="Top"  Height="189" RenderTransformOrigin="0.491,-1.662" Margin="0,0,-1.2,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="267*"/>
+                <ColumnDefinition Width="511*"/>
+            </Grid.ColumnDefinitions>
             <Label Content="CustomerName" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="122"/>
-            <Label Content="CustomerAssembly" Height="26" VerticalAlignment="Top" Margin="132,10,532,0"></Label>
+            <Label Content="CustomerAssembly" Height="26" VerticalAlignment="Top" Margin="132,10,20.6,0"></Label>
             <ComboBox x:Name="Custcombo" HorizontalAlignment="Left" Margin="0,41,0,0" VerticalAlignment="Top" Width="130" Loaded="Custcombo_Loaded" SelectionChanged="Custcombo_SelectionChanged"/>
-            <ListView SelectionMode="Multiple" ItemsSource="{Binding}" x:Name="lstcusass" HorizontalAlignment="Left" Height="96" Margin="135,41,0,0" VerticalAlignment="Top" Width="148">
+            <ListView SelectionMode="Multiple" ItemsSource="{Binding}" x:Name="lstcusass" HorizontalAlignment="Left" Height="96" Margin="135,41,0,0" VerticalAlignment="Top" Width="148" Grid.ColumnSpan="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <VirtualizingStackPanel>
@@ -22,22 +26,22 @@
                 </ListBox.Items>
             </ListView>
             <CheckBox x:Name="CusAssSelectAllchk" Content="SelectAll" HorizontalAlignment="Left" Margin="135,137,0,0" VerticalAlignment="Top" Checked="CusAssSelectAllchk_Checked"/>
-            <Label Content="SetRef" Height="31" VerticalAlignment="Top" Margin="323,15,389,0"/>
-            <ComboBox x:Name="setref1" HorizontalAlignment="Left" Margin="323,51,0,0" VerticalAlignment="Top" Width="120" Loaded="setref1_Loaded" SelectionChanged="setref1_SelectionChanged" RenderTransformOrigin="-0.096,1.266"/>
+            <Label Content="SetRef" Height="31" VerticalAlignment="Top" Margin="56.4,15,389,0" Grid.Column="1"/>
+            <ComboBox x:Name="setref1" HorizontalAlignment="Left" Margin="56.4,51,0,0" VerticalAlignment="Top" Width="120" Loaded="setref1_Loaded" SelectionChanged="setref1_SelectionChanged" RenderTransformOrigin="-0.096,1.266" Grid.Column="1"/>
 
-            <Label Content="SetRef" HorizontalAlignment="Left" Margin="469,15,0,0" VerticalAlignment="Top" Width="97"/>
+            <Label Content="SetRef" HorizontalAlignment="Left" Margin="202.4,15,0,0" VerticalAlignment="Top" Width="97" Grid.Column="1"/>
 
-            <ComboBox x:Name="setref2" HorizontalAlignment="Left" Margin="469,51,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="setref2_SelectionChanged"  Loaded="setref2_Loaded"/>
-            <Button Content="Export" VerticalAlignment="Top" Margin="608,41,100,0" Click="Button_Click"/>
+            <ComboBox x:Name="setref2" HorizontalAlignment="Left" Margin="202.4,51,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="setref2_SelectionChanged"  Loaded="setref2_Loaded" Grid.Column="1"/>
+            <Button Content="Export" VerticalAlignment="Top" Margin="341.4,41,100,0" Click="Button_Click" Grid.Column="1"/>
             <Label Content="RecoveryType" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" Width="91"/>
             <CheckBox x:Name="comdchk" Content="Commodity" HorizontalAlignment="Left" Margin="135,158,0,0" VerticalAlignment="Top" Unchecked="comdchk_Unchecked" Checked="comdchk_Checked" Cursor="Pen"/>
-            <CheckBox x:Name="srpchk" Content="Scrap" HorizontalAlignment="Left" Margin="283,158,0,0" VerticalAlignment="Top" Cursor="Pen" Checked="srpchk_Checked" Unchecked="srpchk_Unchecked"/>
-            <CheckBox x:Name="Currchk" Content="Currency" HorizontalAlignment="Left" Margin="443,158,0,0" VerticalAlignment="Top" Cursor="Pen" Checked="Currchk_Checked" Unchecked="Currchk_Unchecked"/>
-            <CheckBox x:Name="Ohchk" Content="Overhead" HorizontalAlignment="Left" Margin="608,158,0,0" VerticalAlignment="Top" Cursor="Pen" Checked="Ohchk_Checked" Unchecked="Ohchk_Unchecked"/>
-            <DatePicker x:Name="setrefdt1" HorizontalAlignment="Left" Margin="323,92,0,0" VerticalAlignment="Top" ToolTip="Setrefdate1" SelectedDateChanged="setrefdt1_SelectedDateChanged" />
-            <DatePicker x:Name="setrefdt2" HorizontalAlignment="Left" Margin="469,92,0,0" VerticalAlignment="Top" ToolTip="Setrefdate2" SelectedDateChanged="setrefdt2_SelectedDateChanged"/>
-            <Label x:Name="setreflbl" Height="29" VerticalAlignment="Top" Margin="323,116,338,0"/>
-            <Label x:Name="setreflb2" HorizontalAlignment="Left" Margin="469,116,0,0" VerticalAlignment="Top" Width="120" Height="29"/>
+            <CheckBox x:Name="srpchk" Content="Scrap" HorizontalAlignment="Left" Margin="16.4,158,0,0" VerticalAlignment="Top" Cursor="Pen" Checked="srpchk_Checked" Unchecked="srpchk_Unchecked" Grid.Column="1"/>
+            <CheckBox x:Name="Currchk" Content="Currency" HorizontalAlignment="Left" Margin="176.4,158,0,0" VerticalAlignment="Top" Cursor="Pen" Checked="Currchk_Checked" Unchecked="Currchk_Unchecked" Grid.Column="1"/>
+            <CheckBox x:Name="Ohchk" Content="Overhead" HorizontalAlignment="Left" Margin="341.4,158,0,0" VerticalAlignment="Top" Cursor="Pen" Checked="Ohchk_Checked" Unchecked="Ohchk_Unchecked" Grid.Column="1"/>
+            <DatePicker x:Name="setrefdt1" HorizontalAlignment="Left" Margin="56.4,92,0,0" VerticalAlignment="Top" ToolTip="Setrefdate1" SelectedDateChanged="setrefdt1_SelectedDateChanged" Grid.Column="1" />
+            <DatePicker x:Name="setrefdt2" HorizontalAlignment="Left" Margin="202.4,92,0,0" VerticalAlignment="Top" ToolTip="Setrefdate2" SelectedDateChanged="setrefdt2_SelectedDateChanged" Grid.Column="1"/>
+            <Label x:Name="setreflbl" Height="29" VerticalAlignment="Top" Margin="56.4,116,338,0" Grid.Column="1"/>
+            <Label x:Name="setreflb2" HorizontalAlignment="Left" Margin="202.4,116,0,0" VerticalAlignment="Top" Width="120" Height="29" Grid.Column="1"/>
         </Grid>
         <GroupBox x:Name="salesqtygroup"  Margin="10,7.2,10,86.4" >
             <DataGrid x:Name="salesqtydatagrid" HorizontalAlignment="Left" VerticalAlignment="Top" EnableRowVirtualization="False" ColumnWidth="*" Margin="0,0,-2,0" Width="752" Height="242" />

@@ -65,16 +65,16 @@ namespace EconomicTracking
                             context.Configuration.ValidateOnSaveEnabled = false;
                             int count = 0;
                             var entities = new List<SalesQty>();
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                string cusass1 = row["Part No"].ToString();
-                                DateTime dat1 = Convert.ToDateTime(row["Date"].ToString());
-                                int i = context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date).Count();
-                                if (i > 0)
-                                {
-                                    context.SalesQty.RemoveRange(context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date));
-                                }
-                            }
+                            //foreach (DataRow row in dt.Rows)
+                            //{
+                            //    string cusass1 = row["Part No"].ToString();
+                            //    DateTime dat1 = Convert.ToDateTime(row["Date"].ToString());
+                            //    int i = context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date).Count();
+                            //    if (i > 0)
+                            //    {
+                            //        context.SalesQty.RemoveRange(context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date));
+                            //    }
+                            //}
                                 foreach (DataRow row in dt.Rows)
                                 {
                                     try
@@ -89,8 +89,10 @@ namespace EconomicTracking
                                         saleQty.CustomerAssemblyId = row["Part No"].ToString();
                                         saleQty.Date = Convert.ToDateTime(row["Date"].ToString());
                                         saleQty.CustomerName = row["Customer"].ToString();
-                                        saleQty.Quantity = row["Qty"] == null && string.IsNullOrEmpty(row["Qty"].ToString()) ? 0 : Convert.ToDecimal(row["Qty"].ToString());
-                                        entities.Add(saleQty);
+                                        saleQty.Quantity =string.IsNullOrEmpty(row["Qty"].ToString()) ? 0 : Convert.ToDecimal(row["Qty"].ToString());
+                                        context.SalesQty.Add(saleQty);
+                                        //entities.Add(saleQty);
+                                        
                                     }
                                     catch (Exception ex)
                                     {
@@ -100,7 +102,10 @@ namespace EconomicTracking
                                             Xceed.Wpf.Toolkit.MessageBox.Show("Failed to upload data.", "BOM Info", MessageBoxButton.OK, MessageBoxImage.Information);
                                         }));
                                     }
+                                    
                                     count++;
+                                    
+                                    
                                 }
                             //    var options = new BulkInsertOptions
                             //    {
@@ -108,7 +113,9 @@ namespace EconomicTracking
                             //    };
                             ////context.BulkInsert(entities, options);
                             //EFBatchOperation.For(context, context.SalesQty).InsertAll(entities); 
-                            context.SaveChanges();
+                                //context.SalesQty.AddRange(entities);
+                                context.SaveChanges();
+                            
                         }
                     };
                     worker.RunWorkerCompleted += worker_RunWorkerCompleted;

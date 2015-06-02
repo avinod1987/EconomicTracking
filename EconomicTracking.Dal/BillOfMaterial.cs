@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace EconomicTracking.Dal
         public int Quantity { get; set; }
         public string UOM { get; set; }
         public string RMUOM { get; set; }
+        //[ForeignKey("RMid")]
+        //public string RMCD { get; set; }
         public string RawMaterial { get; set; }
         public string Commodity { get; set; }
         public decimal BOMQuantity { get; set; }
