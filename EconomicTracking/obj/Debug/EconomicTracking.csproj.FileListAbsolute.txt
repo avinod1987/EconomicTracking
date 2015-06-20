@@ -231,3 +231,13 @@ E:\EC\Repos\EconomicTracking\obj\Debug\Recovery.g.cs
 E:\EC\Repos\EconomicTracking\bin\Debug\NewFolder1\EconomicTracking.mdf
 E:\EC\Repos\EconomicTracking\bin\Debug\NewFolder1\EconomicTracking_log.ldf
 E:\EC\Repos\EconomicTracking\obj\Debug\EconomicTracking_Content.g.cs
+E:\EC\Repos\EconomicTracking\obj\Debug\EditSettlement.baml
+E:\EC\Repos\EconomicTracking\obj\Debug\EditSettlement.g.cs
+E:\EC\Repos\EconomicTracking\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\EC\Repos\EconomicTracking\obj\Debug\EditSalsQty.baml
+E:\EC\Repos\EconomicTracking\obj\Debug\EditSalsQty.g.cs
+E:\EC\Repos\EconomicTracking\obj\Debug\Page1.baml
+E:\EC\Repos\EconomicTracking\obj\Debug\Page1.g.cs
+E:\EC\Repos\EconomicTracking\obj\Debug\EditBOM.baml
+E:\EC\Repos\EconomicTracking\obj\Debug\EditBOM.g.cs
+E:\EC\Repos\EconomicTracking\bin\Debug\WPFTextBoxAutoComplete.dll

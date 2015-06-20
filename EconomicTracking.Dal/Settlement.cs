@@ -17,6 +17,7 @@ namespace EconomicTracking.Dal
         public string CustomerName { get; set; }
         public DateTime SettlementFrom { get; set; }
         public DateTime SettlementTo { get; set; }
+
         public List<SettlementCommodity> Commodity { get; set; }
         public List<SettlementScarp> Scarp { get; set; }
         public List<SettlementCurrency> Currency { get; set; }
@@ -24,10 +25,10 @@ namespace EconomicTracking.Dal
     }
     public class SettlementCommodity
     {
+        
         [Key]
         public int Id { get; set; }
         public string MaterialName { get; set; }
-        [DataType("decimal(18,4)")]
         public decimal Rate { get; set; }
          [NotMapped]
         public string Settlement_Id { get; set; }
@@ -37,7 +38,6 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string ScrapName { get; set; }
-        [DataType("decimal(18,4)")]
         public decimal Rate { get; set; }
          [NotMapped]
         public string Settlement_Id { get; set; }
@@ -47,7 +47,6 @@ namespace EconomicTracking.Dal
         [Key]
         public int Id { get; set; }
         public string CurrencyCode { get; set; }
-        [DataType("decimal(18,4)")]
         public decimal Rate { get; set; }
          [NotMapped]
         public string Settlement_Id { get; set; }

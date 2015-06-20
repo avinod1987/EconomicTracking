@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="EconomicTracking.EditSettlement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:grid="http://schemas.microsoft.com/wpf/2008/toolkit"
+             xmlns:local="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+             xmlns:dc="clr-namespace:EconomicTracking"
+             mc:Ignorable="d" Width="661.342" Height="411.6">
+    <UserControl.Resources>
+        <Style x:Key="MyWaterMarkStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border Background="White" BorderBrush="#FF7D8683" BorderThickness="1"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                            <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="DimGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CellEditStyle" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="DataGridRow" TargetType="{x:Type DataGridRow}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="0,0,-0.4,267" RenderTransformOrigin="0.459,0.013" >
+        
+        <ComboBox x:Name="cbmCustomer" HorizontalAlignment="Left" Margin="104,5,0,0" VerticalAlignment="Top" Width="120" Loaded="cbmCustomer_Loaded" SelectionChanged="cbmCustomer_SelectionChanged" IsEditable="True"/>
+        <ComboBox SelectionChanged="cbmSettlement_SelectionChanged" x:Name="cbmSettlement" HorizontalAlignment="Left" Margin="366,4,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" />
+
+        <Label Content="Customer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" RenderTransformOrigin="-0.065,0.55" Margin="10,2,0,0"/>
+        <Label Content="SettlementRefId" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" RenderTransformOrigin="-0.065,0.55" Margin="245,0,0,0"/>
+        <grid:DataGrid Visibility="Hidden"  Name="Commoditygrid"  PreviewKeyDown="Commoditygrid_PreviewKeyDown" CanUserAddRows="False"  CanUserDeleteRows="True" RowEditEnding="Commoditygrid_RowEditEnding" AutoGenerateColumns="False"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="187" Width="224" ColumnWidth="*" Margin="0,111,0,-153.8" >
+            <grid:DataGrid.Columns>
+                <grid:DataGridTextColumn Binding="{Binding Id,Mode=TwoWay}" Width="40" Visibility="Hidden"  IsReadOnly="True" Header="ID">
+                </grid:DataGridTextColumn>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding MaterialName,Mode=OneTime,ValidatesOnExceptions=True}"  Header="Commodity">
+                </grid:DataGridTextColumn>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding Rate,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  Width="80" Header="Price"></grid:DataGridTextColumn>
+
+            </grid:DataGrid.Columns>
+            <grid:DataGrid.RowValidationRules>
+                <dc:CommodityValidationRule ValidationStep="RawProposedValue"></dc:CommodityValidationRule>
+            </grid:DataGrid.RowValidationRules>
+        </grid:DataGrid>
+
+        <grid:DataGrid Visibility="Hidden" PreviewKeyDown="Scarpgrid_PreviewKeyDown"  RowEditEnding="Scarpgrid_RowEditEnding" CanUserAddRows="False"  CanUserDeleteRows="True"  Name="Scarpgrid" AutoGenerateColumns="False"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="187" Width="224" ColumnWidth="*" Margin="229,111,0,-153.8">
+            <grid:DataGrid.Columns>
+                <grid:DataGridTextColumn Binding="{Binding Id,Mode=TwoWay}" Visibility="Hidden" Width="40" IsReadOnly="True" Header="ID">
+                </grid:DataGridTextColumn>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding ScrapName,Mode=TwoWay,ValidatesOnExceptions=True}"  Header="Scap">
+                </grid:DataGridTextColumn>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding Rate,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  Width="80" Header="Price"></grid:DataGridTextColumn>
+            </grid:DataGrid.Columns>
+            <grid:DataGrid.RowValidationRules>
+                <dc:ScrapValidationRule ValidationStep="RawProposedValue" ></dc:ScrapValidationRule>
+            </grid:DataGrid.RowValidationRules>
+
+
+        </grid:DataGrid>
+        <grid:DataGrid Visibility="Hidden"  CanUserAddRows="False" RowEditEnding="SettmentGrid_RowEditEnding" SelectionChanged="SettmentGrid_SelectionChanged" x:Name="SettmentGrid" AutoGenerateColumns="False" AlternationCount="2" SelectionMode="Single" HorizontalAlignment="Left" Width="450" Margin="85,31,0,38.2">
+            <grid:DataGrid.Columns>
+                <grid:DataGridTextColumn Binding="{Binding SettlementRef, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="SettlementRefNo" Width="SizeToHeader" />
+                <grid:DataGridTextColumn Binding="{Binding CustomerId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="CustomerId" Width="SizeToHeader" />
+
+                <grid:DataGridTextColumn Binding="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"  Header="CustomerName" Width="SizeToHeader" />
+                <grid:DataGridTemplateColumn Header="SettFrom" >
+                    <grid:DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SettlementFrom ,StringFormat={}{0:dd MMM yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </grid:DataGridTemplateColumn.CellTemplate>
+                    <grid:DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <grid:DatePicker SelectedDate="{Binding SettlementFrom,StringFormat={}{0:dd MMM yyyy}}"/>
+                        </DataTemplate>
+                    </grid:DataGridTemplateColumn.CellEditingTemplate>
+                </grid:DataGridTemplateColumn>
+                <grid:DataGridTemplateColumn Header="SettTo" >
+                    <grid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SettlementTo, StringFormat={}{0:dd MMM yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </grid:DataGridTemplateColumn.CellTemplate>
+                    <grid:DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <grid:DatePicker SelectedDate="{Binding SettlementTo,StringFormat={}{0:dd MMM yyyy}}"/>
+                        </DataTemplate>
+                    </grid:DataGridTemplateColumn.CellEditingTemplate>
+                </grid:DataGridTemplateColumn>
+            </grid:DataGrid.Columns>
+        </grid:DataGrid>
+        <grid:DataGrid Visibility="Hidden" PreviewKeyDown="CurrencyGrid_PreviewKeyDown" RowEditEnding="CurrencyGrid_RowEditEnding" CanUserAddRows="False" Name="CurrencyGrid" AutoGenerateColumns="False" Margin="458,111,10,-153.8" >
+            <grid:DataGrid.Columns>
+                <grid:DataGridTextColumn Header="ID" Visibility="Hidden" Binding="{Binding Id,Mode=TwoWay}" IsReadOnly="True"/>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" Header="CurrencyCode" Binding="{Binding CurrencyCode,Mode=TwoWay,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" Header="CurrencyRate" Binding="{Binding Rate,Mode=TwoWay,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+            </grid:DataGrid.Columns>
+        </grid:DataGrid>
+        <TextBox Visibility="Hidden" Name="Commoditynametxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CommodityName" HorizontalAlignment="Left" Height="23" Margin="0,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Visibility="Hidden" Name="Commoditypricetxt" Style="{StaticResource MyWaterMarkStyle}"  Tag="CommodityPrice" HorizontalAlignment="Left" Height="23" Margin="120,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="104"/>
+        <TextBox Visibility="Hidden" Name="Scarpnametxt" Style="{StaticResource MyWaterMarkStyle}" Tag="ScrapName" HorizontalAlignment="Left" Height="23" Margin="229,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Visibility="Hidden" Name="Scarppricetxt" Style="{StaticResource MyWaterMarkStyle}" Tag="ScrapName" HorizontalAlignment="Left" Height="23" Margin="349,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="104"/>
+        <TextBox Visibility="Hidden" Name="currtxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CurrencyCode" HorizontalAlignment="Left" Height="23" Margin="458,331,0,-209.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="103"/>
+        <TextBox Visibility="Hidden" Name="currpricetxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CurrencyPrice" HorizontalAlignment="Left" Height="23" Margin="561,331,0,-209.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="91"/>
+        <Button Visibility="Hidden" Name="Savebtn" Content="Save" Click="Button_Click_1" HorizontalAlignment="Left" Margin="561,57,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Visibility="Hidden" Name="Createbtn" Content="CreateNewItem" Click="Button_Click_2" HorizontalAlignment="Left" Height="27" Margin="10,303,0,-185.8" VerticalAlignment="Top" Width="105"/>
+        <Button Visibility="Hidden"  Name="Addnewitembtn" Content="AddNewItem" Click="Button_Click_3" HorizontalAlignment="Left" Height="25" Margin="10,369,0,-249.8" VerticalAlignment="Top" Width="105"/>
+    </Grid>
+</UserControl>

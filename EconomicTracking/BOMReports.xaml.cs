@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFReportTest;
 using System.Data.Entity;
+using System.Data;
 
 namespace EconomicTracking
 {
@@ -35,8 +36,23 @@ namespace EconomicTracking
                 //x.Customer==cuscombo.SelectedItem.ToString()
                 var context = new EconomicsTrackingDbContext();
                 sList = await context.CustomerAssembly.Include("BOM").Where(x => x.CustAssyNo == cbmBom.SelectedItem.ToString()).Take(1).ToListAsync();
+                var overhead = sList.Select(x=>x.BOM).Select(x=>x.Where(s=>s.LocalPartName == string.Empty && s.LocalPartNo == string.Empty && s.Quantity == 0 && s.UOM == "")).ToList();
+                Commodity ds = new Commodity();
+                DataTable dt = ds.OverHead;
+                DataRow dr;
+                foreach (var r1 in overhead)
+                {
+                    foreach (var r in r1) { 
+                    dr = dt.NewRow();
+                    dr["OHType"] = r.Commodity;
+                    dr["OHinINR"] = r.ToalCost; dr["OHinSettCurr"] = r.TotalcostinPurCurr;
+                    dt.Rows.Add(dr);
+                    }
+                }
+                dt.AcceptChanges();
+                 
 
-                //sList.ForEach(x => x.BOM.RemoveAll(y => y.LocalPartName == "" && y.LocalPartNo == ""));
+                sList.ForEach(x => x.BOM.RemoveAll(s => s.LocalPartName == string.Empty && s.LocalPartNo == string.Empty && s.Quantity == 0 && s.UOM == ""));
 
                 if (sList.Count() == 0)
                 {
@@ -47,7 +63,6 @@ namespace EconomicTracking
                     var qtyList = new List<CustomerAssemblyModel>();
                     foreach (var item in sList)
                     {
-                        
                         var cust = new CustomerAssemblyModel();
                         cust.Family = item.Family;
                         cust.TotalCost = item.TotalCost;
@@ -85,13 +100,15 @@ namespace EconomicTracking
                         qtyList.Add(cust);
                         
                     }
-                    qtyList.ForEach(x => x.BOM.RemoveAll(y => y.LocalPartName == "" && y.LocalPartNo==""));
+                    //qtyList.ForEach(x => x.BOM.RemoveAll(y => y.LocalPartName == "" && y.LocalPartNo==""));
                     if (qtyList.Count > 0)
                     {
                        
                         BOMCrystalReport crystalReport = new BOMCrystalReport();
-
+                        crystalReport.SetDataSource(ds);
                         ReportUtility.DisplayBOMReports(crystalReport, qtyList);
+
+                        //crystalReport.Dispose();
                     }
                     else
                     {

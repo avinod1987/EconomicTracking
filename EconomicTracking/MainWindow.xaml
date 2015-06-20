@@ -11,6 +11,11 @@
                         <MenuItem Header="Settings" />
                         <MenuItem Header="Exit" Click="MenuItem_Click_2"/>
                     </MenuItem>
+                    <MenuItem Header="Edit">
+                        <MenuItem Header="Settlement" Click="MenuItem_Click_3"></MenuItem>
+                        <MenuItem Header="SalesQuantity" Click="MenuItem_Click_4"></MenuItem>
+                        <MenuItem Header="EditBOM" Click="MenuItem_Click_5"></MenuItem>
+                    </MenuItem>
                     <MenuItem Header="Customer">
                         <MenuItem Header="Add" Click="AddWindow_Click" />
                     </MenuItem>

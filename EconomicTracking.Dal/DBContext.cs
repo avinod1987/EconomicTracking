@@ -32,7 +32,7 @@ namespace EconomicTracking.Dal
         public DbSet<BillOfMaterial> BillOfMaterial { get; set; }
         public DbSet<FinalReport> FinalReport { get; set; }
 
-        //public DbSet<RMCode> FinalReport { get; set; }
+        public DbSet<RMCode> RMCode { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -73,14 +73,14 @@ namespace EconomicTracking.Dal
                 ,new Scrap{ScrapName="Rubber Scrap"},new Scrap{ScrapName="Bronze scrap"}
                 ,new Scrap{ScrapName="Brass scrap"},new Scrap{ScrapName="SS scrap"},new Scrap{ScrapName="Cast Iron Scrap"}
             };
-            //var Rmcode = new List<RMCode> { 
-            //    //new Scrap{ScrapName="HR Scrap"},new Scrap{ScrapName="CR Scrap"},
-            //    new RMCode{RMid="RM_001", RMName="Steel"},new RMCode{RMid="RM_002",RMName="Bronze"}
-            //    ,new RMCode{RMid="RM_003",RMName="Aluminum"},new RMCode{RMid="RM_004",RMName="Copper"}
-            //    ,new RMCode{RMid="RM_005", RMName="Zinc"},new RMCode{RMid="RM_006", RMName="Rubber"}
-            //    ,new RMCode{ RMid="RM_007",RMName="Petroleum"},new RMCode{ RMid="RM_008",RMName="Plastic- Grade 1"},new RMCode{ RMid="RM_009",RMName="Plastic- Grade 2"},new RMCode{ RMid="RM_010",RMName="Plastic- Grade 3"}
-            //};
-            //dbContext.RMCode.AddRange(Rmcode);
+            var Rmcode = new List<RMCode> { 
+                //new Scrap{ScrapName="HR Scrap"},new Scrap{ScrapName="CR Scrap"},
+                new RMCode{RMCodeId="RM_001", RMName="Steel"},new RMCode{RMCodeId="RM_002",RMName="Bronze"}
+                ,new RMCode{RMCodeId="RM_003",RMName="Aluminum"},new RMCode{RMCodeId="RM_004",RMName="Copper"}
+                ,new RMCode{RMCodeId="RM_005", RMName="Zinc"},new RMCode{RMCodeId="RM_006", RMName="Rubber"}
+                ,new RMCode{ RMCodeId="RM_007",RMName="Petroleum"},new RMCode{ RMCodeId="RM_008",RMName="Plastic- Grade 1"},new RMCode{ RMCodeId="RM_009",RMName="Plastic- Grade 2"},new RMCode{ RMCodeId="RM_010",RMName="Plastic- Grade 3"}
+            };
+            dbContext.RMCode.AddRange(Rmcode);
             dbContext.Currency.AddRange(currency);
             dbContext.Materials.AddRange(materials);
             dbContext.Scraps.AddRange(Scraps);

@@ -183,12 +183,46 @@ namespace EconomicTracking
         {
             Container.Children.Add(new MdiChild()
             {
-                Title = "Receipe Reports",
+                Title = "Recovery Reports",
                 Content = new Recovery(),
                 Height = 600,
                 Width = 800
             });
 
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            Container.Children.Add(new MdiChild()
+            {
+                Title = "Edit Settlement",
+                Content = new EditSettlement(),
+                Height = 600,
+                Width = 800
+            });
+                    
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+              Container.Children.Add(new MdiChild()
+            {
+                Title = "Edit SalesQuantity",
+                Content = new EditSalsQty(),
+                Height = 600,
+                Width = 800
+            });
+        }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            Container.Children.Add(new MdiChild()
+            {
+                Title = "Edit BOM",
+                Content = new EditBOM(),
+                Height = 600,
+                Width = 800
+            });
         }
 
         //Recovery

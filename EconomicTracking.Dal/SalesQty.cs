@@ -15,6 +15,6 @@ namespace EconomicTracking.Dal
 
         public string CustomerName { get; set; }
         public DateTime Date { get; set; }
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

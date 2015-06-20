@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System;
 using System.Data;
 using System.Reflection;
+using System.ComponentModel;
 namespace EconomicTracking
 {
     /// <summary>
@@ -15,11 +16,12 @@ namespace EconomicTracking
     /// </summary>
     public partial class SettlementReports : UserControl
     {
-
-
         public SettlementReports()
         {
             InitializeComponent();
+            CalendarDateRange dr = new CalendarDateRange();
+            dr.Start = DateTime.Now.AddDays(1);
+            dtSettleTo.BlackoutDates.Add(dr);
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -41,7 +43,7 @@ namespace EconomicTracking
                     Showreportbutton.Visibility = Visibility.Visible;
                     var sslist = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo }).ToList();
 
-                    gridSettlement.ItemsSource = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo }).ToList();
+                    gridSettlement.ItemsSource = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo }).Take(1).ToList();
                     gridScrap.ItemsSource = sList.FirstOrDefault().Scarp.Select(x => new { x.ScrapName, x.Rate }).ToList();
                     gridCurrency.ItemsSource = sList.FirstOrDefault().Currency.Select(x => new { x.CurrencyCode, x.Rate }).ToList();
                     gridCommodity.ItemsSource = sList.FirstOrDefault().Commodity.Select(x => new { x.MaterialName, x.Rate }).ToList();
@@ -56,6 +58,8 @@ namespace EconomicTracking
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            
+            
             if (cbmSettlement.SelectedValue != null && cbmCustomer.SelectedValue!=null)
             {
 
@@ -68,7 +72,7 @@ namespace EconomicTracking
                 }
                 else
                 {
-
+                    
                     var sListTemp = new List<Settlement>();
                     var sList = new List<Settlement>();
                     using (var context = new EconomicsTrackingDbContext())
@@ -78,6 +82,7 @@ namespace EconomicTracking
                         sList = await context.Settlements.Include("Commodity")
                                                        .Include("Scarp").Include("Currency").Where(x => x.SettlementRef == cbmSettlement.SelectedValue.ToString()).ToListAsync();
                         //sList = sListTemp.Where(x => x.SettlementFrom >= dtSettleFrom.SelectedDate.Value && x.SettlementTo <= dtSettleTo.SelectedDate.Value).ToList();
+
                         var setle = new List<SettlementModel>();
                         foreach (var item in sList)
                         {
@@ -124,6 +129,7 @@ namespace EconomicTracking
                                 });
                             });
                             setle.Add(map);
+                            
                         }
                         if (setle.Count > 0)
                         {
@@ -131,6 +137,7 @@ namespace EconomicTracking
                             var settlement = setle.Take(1).ToList();
                             var currency = setle.Take(1).FirstOrDefault().Currency.ToList();
                             ReportUtility.DisplaySettlementreport(employeeInfoCrystalReport, settlement, null, currency, setle.Take(1).FirstOrDefault().Commodity, setle.Take(1).FirstOrDefault().Scarp);
+                            employeeInfoCrystalReport.Dispose();
                         }
                         else
                         {

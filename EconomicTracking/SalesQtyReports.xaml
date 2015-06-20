@@ -19,18 +19,29 @@
             <Button Content="Export Data..." Height="32" Margin="690,16,-0.1,-0.4" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" Padding="4,2,4,4" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" BorderBrush="{x:Null}" BorderThickness="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3" Width="82"/>
 
             <TextBlock Grid.Column="1" x:Name="lblFileName" Margin="360,3,0,14" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" HorizontalAlignment="Left" Text="Sales Qty Date : " Width="86"/>
-            <TextBlock Grid.Column="1" x:Name="lblFileName_Copy" Margin="461,22,0,41.6" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" 
-                       HorizontalAlignment="Left" Text=" To " Width="19" RenderTransformOrigin="11.737,0.575" Grid.RowSpan="3"/>
-            <Button Content="Search" Grid.Column="1" HorizontalAlignment="Left" Margin="590,20,0,0" VerticalAlignment="Top" Width="75" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Click="Button_Click_1" Height="22" />
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="480,20,0,0" VerticalAlignment="Top" Name="dtSalesTo" Height="24" Width="102"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="360,20,0,0" VerticalAlignment="Top" Name="dtSalesFrom" Height="24" Width="102"/>
+            <Button  Visibility="Hidden" Content="Search" Grid.Column="1" HorizontalAlignment="Left" Margin="590,20,0,0" VerticalAlignment="Top" Width="75" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Click="Button_Click_1" Height="22" />
+            <DatePicker Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Left" Margin="480,20,0,0" VerticalAlignment="Top" Name="dtSalesTo" Height="24" Width="102"/>
+            <DatePicker Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Left" Margin="360,20,0,0" VerticalAlignment="Top" Name="dtSalesFrom" Height="24" Width="102"/>
             <ComboBox x:Name="cuscombo" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146" Margin="10,0,0,0" Loaded="cuscombo_Loaded" SelectionChanged="cuscombo_SelectionChanged" Grid.Row="2"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="388,5,0,0" VerticalAlignment="Top" Name="dtsalesfrommonth" Height="24" Width="102" Grid.Row="2"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="504,5,0,0" VerticalAlignment="Top" Name="dtsalesfromYear" Height="24" Width="102" Grid.Row="2"/>
+            <DatePicker SelectedDateFormat="Long" Grid.Column="1" HorizontalAlignment="Left" Margin="351,3.2,0,0" VerticalAlignment="Top" Name="dtsalesfrommonth" Height="24" Width="143" Grid.Row="2">
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="Text" Value="Enter SalesQty From Date"></Setter>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+            <DatePicker  SelectedDateFormat="Long" Grid.Column="1" HorizontalAlignment="Left" Margin="499,2.2,0,0" VerticalAlignment="Top" Name="dtsalesfromYear" Height="24" Width="125" Grid.Row="2">
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="Text" Value="Enter SalesQty To Date"></Setter>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
 
-            <Button Content="SalesQtyByMonth" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" x:Name="salesqtybymonthbtn" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Margin="606,5,0,0" Grid.Row="2" Click="salesqtybymonthbtn_Click"/>
+            <Button Content="SalesQtyByMonth" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" x:Name="salesqtybymonthbtn" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Margin="640,3.2,0,0" Grid.Row="2" Click="salesqtybymonthbtn_Click"/>
             <CheckBox x:Name="chkSelectAll" Visibility="Visible" Content="Select All" Grid.Column="1" HorizontalAlignment="Left" Margin="180,92,0,0" Grid.Row="2" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-            <ListView x:Name="lstItems" SelectionMode="Multiple" ItemsSource="{Binding}"  Loaded="lstItems_Loaded" Grid.Column="1" Margin="180,22,435.6,28" Grid.RowSpan="3" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="lstItems_SelectionChanged">
+            <ListView x:Name="lstItems" SelectionMode="Multiple" ScrollViewer.IsDeferredScrollingEnabled="True"   ItemsSource="{Binding}"  Loaded="lstItems_Loaded" Grid.Column="1" Margin="180,22,435.6,28" Grid.RowSpan="3" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="lstItems_SelectionChanged"
+                            VirtualizingStackPanel.IsVirtualizing="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <VirtualizingStackPanel>
@@ -41,12 +52,34 @@
                 <ListBox.Items>
                 </ListBox.Items>
             </ListView>
+            <!--<TreeView VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" Name="ttr" Grid.ColumnSpan="2" Margin="404,46.2,217.6,10" Grid.Row="2">
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                    <CheckBox x:Name="chkcus1" Content="{Binding Path=CustomerAssemblyId}" Loaded="chkcus1_Loaded"></CheckBox>
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>-->
             <Label Grid.ColumnSpan="2" Content="CustomerName" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Width="146"/>
             <Label Content="CustomerAssemblyId" RenderTransformOrigin="-2.646,-11.466" Grid.Column="1" Margin="180,0,472.6,19.6"/>
         </Grid>
-        <GroupBox x:Name="salesqtygroup" Header="Sales Quality Details" Margin="10,7,10,264" Visibility="Hidden" >
-            <DataGrid x:Name="salesqtydatagrid" HorizontalAlignment="Left" VerticalAlignment="Top" EnableRowVirtualization="False" ColumnWidth="*" />
-        </GroupBox>
+        
+        <Grid>
+            <Grid>
+                <GroupBox x:Name="salesqtygroup" Header="Sales Quality Details" Margin="10,7,10,264" Visibility="Hidden" >
+                    <DataGrid x:Name="salesqtydatagrid" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" EnableRowVirtualization="False" ColumnWidth="*" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding montyear}"  Header="Month Year"/>
+                            <DataGridTextColumn Binding="{Binding Sum}" Header="SalesQuantity"/>
+                            <DataGridTextColumn Binding="{Binding CustomerAssemblyId}"  Header="CustomerAssemblyId"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <!--Put your main content here-->
+            </Grid>
+            <Rectangle Name="gg" Fill="White" Opacity="0.7" Visibility="{Binding IsWaiting}" />
+            <TextBlock Name="txt" Text="Please Wait" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <!--You could add a 'Please Wait' TextBlock here-->
+        </Grid>
 
 
     </DockPanel>

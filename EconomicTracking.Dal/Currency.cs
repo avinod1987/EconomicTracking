@@ -13,7 +13,6 @@ namespace EconomicTracking.Dal
         public int Id { get; set; }
         public string CurrencyCode { get; set; }
         public string CountryName { get; set; }
-        [DataType("decimal(18,4)")]
         public decimal IndianRate { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Forms;
 using EntityFramework.BulkInsert.Extensions;
 using EntityFramework.Utilities;
+using System.Transactions;
 
 namespace EconomicTracking
 {
@@ -47,8 +48,6 @@ namespace EconomicTracking
                         excelReader.IsFirstRowAsColumnNames = true;
                         DataSet result = excelReader.AsDataSet();
                         excelReader.Close();
-                       
-                        
                         DataTable dt = result.Tables["Volumes"];
                         dt = RemoveUnusedColumnsAndRows(dt);
                         int index = 0;
@@ -73,6 +72,7 @@ namespace EconomicTracking
                             //    if (i > 0)
                             //    {
                             //        context.SalesQty.RemoveRange(context.SalesQty.Where(x => x.CustomerAssemblyId == cusass1 && x.Date == dat1.Date));
+                            //        context.SaveChanges();
                             //    }
                             //}
                                 foreach (DataRow row in dt.Rows)
@@ -89,9 +89,10 @@ namespace EconomicTracking
                                         saleQty.CustomerAssemblyId = row["Part No"].ToString();
                                         saleQty.Date = Convert.ToDateTime(row["Date"].ToString());
                                         saleQty.CustomerName = row["Customer"].ToString();
-                                        saleQty.Quantity =string.IsNullOrEmpty(row["Qty"].ToString()) ? 0 : Convert.ToDecimal(row["Qty"].ToString());
-                                        context.SalesQty.Add(saleQty);
-                                        //entities.Add(saleQty);
+                                        saleQty.Quantity =string.IsNullOrEmpty(row["Qty"].ToString()) ? 0 : Convert.ToInt32(row["Qty"].ToString());
+                                        //context.SalesQty.Add(saleQty);
+                                        entities.Add(saleQty);
+                                        //context.SaveChanges();
                                         
                                     }
                                     catch (Exception ex)
@@ -104,9 +105,17 @@ namespace EconomicTracking
                                     }
                                     
                                     count++;
-                                    
-                                    
                                 }
+                             using (var transactionScope = new TransactionScope())
+                             {
+                              // some stuff in dbcontext
+
+                              context.BulkInsert<SalesQty>(entities);
+
+                              context.SaveChanges();
+                              transactionScope.Complete();
+                            }
+                                //context.BulkInsert<SalesQty>(entities);
                             //    var options = new BulkInsertOptions
                             //    {
                             //        EnableStreaming = true
@@ -114,7 +123,7 @@ namespace EconomicTracking
                             ////context.BulkInsert(entities, options);
                             //EFBatchOperation.For(context, context.SalesQty).InsertAll(entities); 
                                 //context.SalesQty.AddRange(entities);
-                                context.SaveChanges();
+                                //context.SaveChanges();
                             
                         }
                     };
@@ -136,11 +145,23 @@ namespace EconomicTracking
         private void worker_RunWorkerCompleted(object sender,
                                        RunWorkerCompletedEventArgs e)
         {
-            lblFileName.Text = "Data uploaded successfully.......";
-            Xceed.Wpf.Toolkit.MessageBox.Show("Data uploaded successfully.......", "SalesQty Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            worker.Dispose();
-            worker = null;
-            GC.Collect();
+            if (e.Error == null)
+            {
+                lblFileName.Text = "Data uploaded successfully.......";
+                Xceed.Wpf.Toolkit.MessageBox.Show("Data uploaded successfully.......", "SalesQty Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                lblFileName.Text = "Unable to Upload the Data.......";
+                Xceed.Wpf.Toolkit.MessageBox.Show("Unable to upload data "+e.Error.Message.ToString(), "SalesQty Info", MessageBoxButton.OK, MessageBoxImage.Information);
+               
+            }
+            if (worker != null)
+            {
+                worker.Dispose();
+                worker = null;
+                GC.Collect();
+            }
         }
         private static DataTable RemoveUnusedColumnsAndRows(DataTable table)
         {

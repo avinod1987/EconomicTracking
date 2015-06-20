@@ -22,29 +22,39 @@ namespace EconomicTracking.Dal
         public int Quantity { get; set; }
         public string UOM { get; set; }
         public string RMUOM { get; set; }
-        //[ForeignKey("RMid")]
-        //public string RMCD { get; set; }
+        //[ForeignKey("RMCode")]
+        public string RMCodeId { get; set; }
+        public virtual RMCode rmcode { get; set; }
         public string RawMaterial { get; set; }
         public string Commodity { get; set; }
         public decimal BOMQuantity { get; set; }
-        [DataType("decimal(18,4)")]
         public decimal TotalRMqty { get; set; }
         public string Scarp { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal ScrapQuantity { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal ChildPartRate { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal ToalCost { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal Scraptotalqty { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal TotalcostinPurCurr { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal ChildpartCost { get; set; }
         public string CurrencyCode { get; set; }
-        [DataType("decimal(18,4)")]
+        
         public decimal Exchangerate { get; set; }
 
+    }
+    public class RMCode
+    {
+        [Key]
+     [DatabaseGenerated(DatabaseGeneratedOption.None)]   
+        public string RMCodeId { get; set; }
+
+        public string RMName { get; set; }
+
+        public virtual ICollection<BillOfMaterial> billRmcode { get; set; }
     }
 }

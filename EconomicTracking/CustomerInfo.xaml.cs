@@ -41,7 +41,7 @@ namespace EconomicTracking
                     customer.Name = txtName.Text;
                     customer.Location = txtLocation.Text;
                     customer.Phone = txtMobile.Text;
-                    customer.Pincode = txtPincode.Text;
+                    //customer.Pincode = txtPincode.Text;
                     customer.Company = txtCompany.Text;
                    // customer.Address = txtAddress.Text;
                     customer.Email = txtEmail.Text;

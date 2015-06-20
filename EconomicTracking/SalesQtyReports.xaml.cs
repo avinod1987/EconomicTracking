@@ -29,12 +29,16 @@ namespace EconomicTracking
         List<string> li = new List<string>();
         DataTable table = new DataTable();
         EconomicsTrackingDbContext context = new EconomicsTrackingDbContext();
-        private BackgroundWorker worker = null;
+        private BackgroundWorker worker = null; short s = 0;
          
         public SalesQtyReports()
         {
             InitializeComponent();
-            
+            CalendarDateRange cd=new CalendarDateRange();
+            cd.Start =DateTime.Now.AddDays((DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)-DateTime.Now.Day)+1) ;
+            dtsalesfromYear.BlackoutDates.Add(cd);
+            var IsWaiting = Visibility.Hidden;
+            gg.Visibility = IsWaiting; txt.Text = "";
         }
 
 
@@ -74,6 +78,7 @@ namespace EconomicTracking
             }
             else
             {
+                table.Clear(); txt.Text = "Please Wait..................";
                 var sList = new List<SalesQty>();
                 var context = new EconomicsTrackingDbContext();
                 sList = await context.SalesQty.Where(x => x.Date >= dtSalesFrom.SelectedDate.Value && x.Date <= dtSalesTo.SelectedDate.Value).ToListAsync();
@@ -84,7 +89,6 @@ namespace EconomicTracking
                     {
                         var qtyList = new List<SalesQtyModel>();
                         sList = sList.OrderByDescending(x => x.Date).ToList();
-                        table.Columns.Add("Customer Assy No");
                         sList.ForEach(x =>
                         {
                             if (!table.Columns.Contains(x.Date.ToString("dd-MMM-yy")))
@@ -141,10 +145,13 @@ namespace EconomicTracking
             //Xceed.Wpf.Toolkit.MessageBox.Show(Liet.SelectedItem.ToString());
         }
 
-        private void salesqtybymonthbtn_Click(object sender, RoutedEventArgs e)
+        private async void salesqtybymonthbtn_Click(object sender, RoutedEventArgs e)
         {
             if (dtsalesfrommonth.SelectedDate.HasValue && dtsalesfromYear.SelectedDate.HasValue)
             {
+                var IsWaiting = Visibility.Visible;
+                gg.Visibility = IsWaiting;
+                table.Clear(); txt.Text = "Please Wait..................";
                 //var sList = new List<SalesQty>();
                 var context = new EconomicsTrackingDbContext();
                 //var sList = (from s in context.SalesQty
@@ -158,19 +165,22 @@ namespace EconomicTracking
 
                 var todatemonthend = DateTime.DaysInMonth(dtsalesfromYear.SelectedDate.Value.Year, dtsalesfromYear.SelectedDate.Value.Month);
 
+                System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                
                 //24-apr-2014
                //string s1= lstItems.SelectedItem.ToString();
                //Xceed.Wpf.Toolkit.MessageBox.Show("dsudsd"+s1);
                 List<string> l = new List<string> { "CusAssy_627", "CusAssy_018" };
                 var fromDate = new DateTime(dtsalesfrommonth.SelectedDate.Value.Year, dtsalesfrommonth.SelectedDate.Value.Month, 1);
                 var toDate = new DateTime(dtsalesfromYear.SelectedDate.Value.Year, dtsalesfromYear.SelectedDate.Value.Month, todatemonthend);
-                var list = context.SalesQty.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
+                var list = await context.SalesQty.Where(x => x.Date >= fromDate && x.Date <= toDate).ToListAsync();
                 var sList = (from s in list
                              group s by new { month = s.Date.Month, year = s.Date.Year, cus = s.CustomerAssemblyId } into d
                              select new
                              {
+                                 montyear=mfi.GetAbbreviatedMonthName(d.Key.month)+","+ d.Key.year,
                                  MonthYear = d.Key.month + "/" + d.Key.year,
-                                 Sum = Math.Truncate(d.Sum(x => x.Quantity)),
+                                 Sum = d.Sum(x => x.Quantity),
                                  CustomerAssemblyId = d.Key.cus
                              })
                     //.Where(l.Contains()
@@ -195,10 +205,14 @@ namespace EconomicTracking
                     //worker = new BackgroundWorker();
                     //worker.DoWork += (a, b) =>
                     //{
-                    System.Windows.Controls.CheckBox box; ;
+                    System.Windows.Controls.CheckBox box;
 
+                    if (s == 0)
+                    {
+                        table.Columns.Add("Customer Assy No"); s++;
+                    }
 
-                    table.Columns.Add("Customer Assy No");
+                    //table.Columns.Add("Customer Assy No");
                     sList.ForEach(x =>
                     {
                         if (!table.Columns.Contains(x.MonthYear.ToString()))
@@ -244,6 +258,9 @@ namespace EconomicTracking
                     salesqtygroup.Visibility = Visibility.Visible;
                     //table = (DataTable)sList.AsEnumerable();
                     salesqtydatagrid.ItemsSource = sList;
+                    IsWaiting = Visibility.Hidden;
+                    gg.Visibility = IsWaiting;
+                    txt.Text = "";
                     //};
                     //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
                     //worker.RunWorkerAsync();
@@ -260,10 +277,9 @@ namespace EconomicTracking
 
         }
 
-        private void cuscombo_Loaded(object sender, RoutedEventArgs e)
+        private async void cuscombo_Loaded(object sender, RoutedEventArgs e)
         {
-            var context = new EconomicsTrackingDbContext();
-            cuscombo.ItemsSource = context.SalesQty.Select(x => x.CustomerName).Distinct().ToList();
+            cuscombo.ItemsSource = await context.SalesQty.Select(x => x.CustomerName).Distinct().ToListAsync();
         }
 
         private void listcus_Loaded(object sender, RoutedEventArgs e)
@@ -290,10 +306,9 @@ namespace EconomicTracking
            
         }
 
-        private void CheckBox_Loaded(object sender, RoutedEventArgs e)
+        private  void CheckBox_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            this.DataContext = context.SalesQty.Select(x => x.CustomerAssemblyId).ToList();
+            this.DataContext = context.SalesQty.Where(x => x.CustomerName == cuscombo.SelectedItem.ToString()).Select(x => x.CustomerAssemblyId).Distinct().ToList();
             //lstItems.ItemsSource = context.SalesQty.Select(x => x.CustomerAssemblyId).ToList();
         }
 
@@ -319,12 +334,18 @@ namespace EconomicTracking
 
         }
 
-        private void cuscombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cuscombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
-            lstItems.ItemsSource = context.SalesQty.Where(x=>x.CustomerName==cuscombo.SelectedItem.ToString()).ToList();
-
+            var r=await context.SalesQty.Where(x=>x.CustomerName==cuscombo.SelectedItem.ToString()).ToListAsync();
+            //ttr.ItemsSource = r;
+            lstItems.ItemsSource = r;
         }
+
+        //private void chkcus1_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    this.DataContext = context.SalesQty.Where(x => x.CustomerName == cuscombo.SelectedItem.ToString()).Select(x => x.CustomerAssemblyId).Distinct().ToList();
+           
+        //}
 
     }
 }

@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Forms;
 using EntityFramework.Utilities;
 using EntityFramework.BulkInsert.Extensions;
+using System.Transactions;
 namespace EconomicTracking
 {
     /// <summary>
@@ -74,6 +75,11 @@ namespace EconomicTracking
                           var currencyList = new List<SettlementCurrency>();
                           var commodityList = new List<SettlementCommodity>();
                           var scrapList = new List<SettlementScarp>();
+                          foreach (DataRow dr in dt.Rows)
+                          {
+                              IQueryable<Settlement> t = context.Settlements.Where(x => x.SettlementRef == dr["Settlement Ref"].ToString() && x.CustomerName == dr["Customer Name"].ToString());
+                              context.Settlements.RemoveRange(t);
+                          }
                           foreach (DataRow row in dt.Rows)
                           {
                               Dispatcher.BeginInvoke(new Action(() =>
@@ -99,41 +105,50 @@ namespace EconomicTracking
                                       curr.Rate = Convert.ToDecimal(row[mname].ToString());
                                       //curr.Settlement_Id = settlement.Id;
                                       settlement.Currency.Add(curr);
-                                      //currencyList.Add(curr);
+                                      currencyList.Add(curr);
                                   }
                               });
                               comlist.ForEach(x =>
                               {
-                                  string mname = x.MaterialName.Replace("\r\n", "");
+                                  string mname = x.MaterialName;
+                                      //.Replace("\r\n", "");
                                   if (row[mname] != null && !string.IsNullOrEmpty(row[mname].ToString()))
                                   {
                                       var comm = new SettlementCommodity();
                                       comm.MaterialName = x.MaterialName;
                                       comm.Rate = Convert.ToDecimal(row[mname].ToString());
                                       settlement.Commodity.Add(comm);
-                                      //commodityList.Add(comm);
+                                      commodityList.Add(comm);
                                   }
                               });
                               scplist.ForEach(x =>
                               {
-                                  string mname = x.ScrapName.Replace("\r\n", "");
+                                  string mname = x.ScrapName;
+                                      //.Replace("\r\n", "");
                                   if (row[mname] != null && !string.IsNullOrEmpty(row[mname].ToString()))
                                   {
                                       var comm = new SettlementScarp();
                                       comm.ScrapName = x.ScrapName;
                                       comm.Rate = Convert.ToDecimal(row[mname].ToString());
                                       settlement.Scarp.Add(comm);
-                                      //scrapList.Add(comm);
+                                      scrapList.Add(comm);
                                   }
                               });
-
                               settlementList.Add(settlement);
-                              context.Settlements.Add(settlement);
-                              context.SaveChanges();
-                              //EFBatchOperation.For(db, db.BlogPosts).InsertAll(list);
+                              //context.Settlements.Add(settlement);
+                              //context.SaveChanges();
+                                  //EFBatchOperation.For<context,Settlement>(.InsertAll(settlementList);
                               count++;
+                              //EFBatchOperation(context, settlementList).InsertAll(settlementList);
+                              
                           }
-                          
+                          using (var transactionScope = new TransactionScope())
+                          {
+                              // some stuff in dbcontext
+                              context.Settlements.AddRange(settlementList);
+                              context.SaveChanges();
+                              transactionScope.Complete();
+                          }
                       }
                   };
                     worker.RunWorkerCompleted += worker_RunWorkerCompleted;
@@ -153,11 +168,21 @@ namespace EconomicTracking
         private void worker_RunWorkerCompleted(object sender,
                                       RunWorkerCompletedEventArgs e)
         {
+            if (e.Error != null)
+            {
+                lblFileName.Text = "Unable to Upload Data.......";
+                Xceed.Wpf.Toolkit.MessageBox.Show("Unable to Upload Data"+e.Error.Message.ToString(), "Settlement Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                worker.Dispose();
+                worker = null;
+                GC.Collect();
+            }
+            else { 
             lblFileName.Text = "Data uploaded successfully.......";
-            Xceed.Wpf.Toolkit.MessageBox.Show("Data uploaded successfully.......", "BOM Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            Xceed.Wpf.Toolkit.MessageBox.Show("Data uploaded successfully.......", "Settlement Info", MessageBoxButton.OK, MessageBoxImage.Information);
             worker.Dispose();
             worker = null;
             GC.Collect();
+            }
         }
         private static DataTable RemoveUnusedColumnsAndRows(DataTable table)
         {

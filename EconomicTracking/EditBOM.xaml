@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="EconomicTracking.EditBOM"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="663.259" Height="541.452">
+    <Grid Margin="10,0,-138.4,0">
+        <ComboBox Name="CusCombo" Loaded="CusCombo_Loaded" SelectionChanged="CusCombo_SelectionChanged" HorizontalAlignment="Left" Margin="75,11,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Customer" HorizontalAlignment="Left" Margin="11,11,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label Content="CustomerAssName" HorizontalAlignment="Left" Margin="195,10,0,0" VerticalAlignment="Top" Width="111"/>
+        <ComboBox Name="CusAssidCombo" HorizontalAlignment="Left" Margin="306,11,0,0" VerticalAlignment="Top" Width="107" SelectionChanged="CusAssidCombo_SelectionChanged"/>
+        <ComboBox SelectionChanged="CuspartnoCombo_SelectionChanged" Name="CuspartnoCombo" HorizontalAlignment="Left" Margin="515,11,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="CustpartName" HorizontalAlignment="Left" Margin="426,10,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label Content="CustomerPartNo" HorizontalAlignment="Left" Margin="11,112,0,0" VerticalAlignment="Top"/>
+        <Label Content="Local part No" HorizontalAlignment="Left" Margin="11,140,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label Content="Local part Name" HorizontalAlignment="Left" Margin="11,168,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Content="QtyinAss" HorizontalAlignment="Left" Margin="11,196,0,0" VerticalAlignment="Top" Width="93"/>
+        <TextBox Name="Custpartnotxt" HorizontalAlignment="Left" Height="23" Margin="136,112,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="localpartnotxt" HorizontalAlignment="Left" Height="23" Margin="136,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="localpartnametxt" HorizontalAlignment="Left" Height="23" Margin="136,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="qtyinasstxt" HorizontalAlignment="Left" Height="23" Margin="136,196,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Label Content="RM UOM" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Width="93"/>
+        <ComboBox Name="RmUOMcombo" HorizontalAlignment="Left" Margin="136,224,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="RMCommodity" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="117"/>
+        <TextBox Name="Rmcommtxt" HorizontalAlignment="Left" Height="23" Margin="136,251,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Label Content="RM Quantity" HorizontalAlignment="Left" Margin="10,276,0,0" VerticalAlignment="Top" Width="93"/>
+        <TextBox Name="rmcommqtytxt" HorizontalAlignment="Left" Height="23" Margin="136,279,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Label Content="Scrap Commodity" HorizontalAlignment="Left" Margin="10,307,0,0" VerticalAlignment="Top" Width="107"/>
+        <TextBox Name="scrpcommtxt" HorizontalAlignment="Left" Height="23" Margin="136,310,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Scarp Quantity" HorizontalAlignment="Left" Margin="11,368,0,0" VerticalAlignment="Top" Width="107" RenderTransformOrigin="0.569,0.408"/>
+        <TextBox Name="Scrapqtytxt" HorizontalAlignment="Left" Height="23" Margin="136,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Cost/Child Part(INR)" HorizontalAlignment="Left" Margin="11,399,0,0" VerticalAlignment="Top" Width="117"/>
+        <TextBox Name="costperchildtxt" HorizontalAlignment="Left" Height="23" Margin="136,399,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Label Content="Purchasing Curr" HorizontalAlignment="Left" Margin="11,430,0,0" VerticalAlignment="Top" Width="107"/>
+        <TextBox Name="purrcurrtxt" HorizontalAlignment="Left" Height="23" Margin="136,430,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Label Content="Scarp UOM" HorizontalAlignment="Left" Margin="11,338,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Visibility="Hidden"  Name="CustomerPartNamelbl" Content="CustomerPartName" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="117"/>
+        <TextBox Visibility="Hidden"  Name="CustomerPartNametxt" HorizontalAlignment="Left" Height="23" Margin="136,81,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="scrapUOMcombo" HorizontalAlignment="Left" Margin="136,340,0,0" VerticalAlignment="Top" Width="120"/>
+        <Grid Margin="0,3,-1.4,-3.4">
+            <Label Content="ExchangeRate" HorizontalAlignment="Left" Margin="10,459,0,0" VerticalAlignment="Top" Width="102"/>
+            <TextBox Name="Exctxt" HorizontalAlignment="Left" Height="23" Margin="137,459,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+            <Button Visibility="Hidden"  Name="addchildbtn" Click="addchildbtn_Click"  Content="Add" HorizontalAlignment="Left" Margin="23,503,0,0" VerticalAlignment="Top" Width="117"/>
+            <Button Visibility="Hidden" Name="Deletebtn" Click="Deletebtn_Click" Content="Delete" HorizontalAlignment="Left" Margin="647,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.44,0.759"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -22,7 +22,13 @@
             <GroupBox x:Name="Receipe" Header="Receipe Details"  HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Height="393" Width="905" ></GroupBox>
             <Grid>
                 <GroupBox x:Name="CommodityGrp" Header="Commondity Details" Margin="10,124,546.8,256" >
-                    <DataGrid x:Name="commoditydatagrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="195" Margin="0,0,0,-2.2" Width="357" Visibility="Hidden"></DataGrid>
+                    <DataGrid x:Name="commoditydatagrid" ColumnWidth="*" AutoGenerateColumns="False" CanUserDeleteRows="False"  CanUserAddRows="False" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Height="195" Margin="0,0,0,-2.2" Width="357" Visibility="Hidden">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Commodity}"  Header="Commodity Name" SortDirection="Ascending"/>
+                            <DataGridTextColumn Binding="{Binding UOM}"  Header="UOM"/>
+                            <DataGridTextColumn Binding="{Binding RMWeight}" Header="RMWeight" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </GroupBox>
             </Grid>
         </Grid>
@@ -31,17 +37,35 @@
         </Grid>
         <Grid Margin="-10,-38,9.8,38">
             <GroupBox x:Name="Currencygrp" Header="Currrency details" HorizontalAlignment="Left" Margin="10,383,0,22" RenderTransformOrigin="-8.082,1.379" Width="379" Height="195"  >
-                <DataGrid x:Name="Currencygrid" HorizontalAlignment="Left" Margin="0,0,-1.8,-22.2" Height="195" Width="369" Visibility="Hidden" ></DataGrid>
+                <DataGrid x:Name="Currencygrid" ColumnWidth="*" AutoGenerateColumns="False" CanUserDeleteRows="False"  CanUserAddRows="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,-1.8,-22.2" Height="195" Width="369" Visibility="Hidden" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding CurrencyCode}" Header="CurrencyCode" />
+                        <DataGridTextColumn Binding="{Binding CurrencyinINR}" Header="Currency(INR)"/>
+                        <DataGridTextColumn Binding="{Binding PurrCurrency}" Header="PurchasingCurrency"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
-            <DataGrid x:Name="Scrapdatagrid" HorizontalAlignment="Left" Margin="394,183,0,217" Height="200" Width="360" Visibility="Hidden"/>
+            <DataGrid x:Name="Scrapdatagrid" ColumnWidth="*" AutoGenerateColumns="False" CanUserDeleteRows="False"  CanUserAddRows="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="394,183,0,217" Height="200" Width="360" Visibility="Hidden">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding ScrapName}" Header="ScrapName"/>
+                    <DataGridTextColumn Binding="{Binding UOM}" Header="UOM" />
+                    <DataGridTextColumn Binding="{Binding ScrapWeight}" Header="ScrapWeight"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         <Grid Margin="-10,10,9.8,-10">
-            <GroupBox x:Name="OverHeadsgrp" Header="OverHead Details" HorizontalAlignment="Right" Width="363" Margin="0,335,170,71">
-                <DataGrid x:Name="OverHeadgrid" HorizontalAlignment="Right" Margin="0,0,-1.8,-0.2" Width="345" Visibility="Hidden" ></DataGrid>
+            <GroupBox x:Name="OverHeadsgrp"  Header="OverHead Details" HorizontalAlignment="Right" Width="363" Margin="0,335,170,71">
+                <DataGrid x:Name="OverHeadgrid" ColumnWidth="*" AutoGenerateColumns="False" CanUserDeleteRows="False"  CanUserAddRows="False" IsReadOnly="True" HorizontalAlignment="Right" Margin="0,0,-1.8,-0.2" Width="345" Visibility="Hidden" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding OHType}" Header="OHType"/>
+                        <DataGridTextColumn Binding="{Binding OHinINR}" Header="OH(INR)"/>
+                        <DataGridTextColumn Binding="{Binding OHinSettCurr}" Header="OH(PurrCurrency)"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
             <Button Content="ShowReport" HorizontalAlignment="Left" Margin="509,46,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         </Grid>
-        <Button x:Name="recepiereportbtn" Content="Show Report" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Hidden" Margin="426,56,0,0" Click="recepiereportbtn_Click"/>
+        <Button x:Name="recepiereportbtn" Content="Export" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Hidden" Margin="426,56,0,0" Click="recepiereportbtn_Click"/>
     </Grid>
 
 

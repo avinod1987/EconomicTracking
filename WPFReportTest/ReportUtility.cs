@@ -56,6 +56,8 @@ namespace WPFReportTest
             ReportViewerUI Viewer = new ReportViewerUI();
             try
             {
+                //rc.SetDataSource(dd);
+                //rc.SetDataSource(ds);
                 rc.Database.Tables["EconomicTracking_Dal_BillOfMaterialModel"].SetDataSource(objDataSource[0].BOM);
                 rc.Database.Tables["EconomicTracking_Dal_CustomerAssemblyModel"].SetDataSource(objDataSource);
                 Viewer.setReportSource(rc);

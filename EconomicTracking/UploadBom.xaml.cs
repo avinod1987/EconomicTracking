@@ -49,14 +49,7 @@ namespace EconomicTracking
                             }));
 
                             var finfo = new FileInfo(openFileDialog.FileName);
-                            //try { 
-                            //FileStream stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
-                            //    }
-
-                            //catch (Exception ex1) { System.Windows.MessageBox.Show("Either file is open or Unable to read the excel");  err=1; }
-
                             FileStream stream1 = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
-
                             IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream1);
                             excelReader.IsFirstRowAsColumnNames = true;
                             Thread.Sleep(500);
@@ -161,6 +154,7 @@ namespace EconomicTracking
                                         foreach (DataRow row in dt.Rows)
                                         {
                                             var bom = new BillOfMaterial();
+                                            var rmcode=new RMCode();
                                             bom.CustAssyNo = custAssm.CustAssyNo;
                                             bom.CustomerPartNo = string.IsNullOrEmpty(row["Cust Part No"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
                                             bom.CustomerPartName = string.IsNullOrEmpty(row["Cust Part Name"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
@@ -170,7 +164,7 @@ namespace EconomicTracking
                                             bom.Quantity = string.IsNullOrEmpty(row["Qty In Assy"].ToString().Trim()) ? 0 : Convert.ToInt32(row["Qty In Assy"].ToString().Trim());
                                             bom.UOM = string.IsNullOrEmpty(row["UOM"].ToString().Trim()) ? "" : row["UOM"].ToString().Trim();
                                             bom.RMUOM = string.IsNullOrEmpty(row["RM_UOM"].ToString().Trim()) ? "" : row["RM_UOM"].ToString().Trim();
-                                            bom.RawMaterial = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "" : row["RM Code"].ToString().Trim();
+                                            //bom.RawMaterial = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "" : row["RM Code"].ToString().Trim();
                                             bom.Commodity = string.IsNullOrEmpty(row["RMCommodity"].ToString().Trim()) ? "" : row["RMCommodity"].ToString().Trim();
                                             bom.BOMQuantity = string.IsNullOrEmpty(row["RM Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["RM Qty/part"].ToString().Trim());
                                             bom.TotalRMqty = string.IsNullOrEmpty(row["Total RM Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total RM Qty/Assy"].ToString().Trim());
@@ -182,7 +176,8 @@ namespace EconomicTracking
                                             bom.TotalcostinPurCurr = string.IsNullOrEmpty(row["Total Cost in Purchasing Currency"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Cost in Purchasing Currency"].ToString().Trim());
                                             bom.Exchangerate = string.IsNullOrEmpty(row["Exchange rate"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Exchange rate"].ToString().Trim());
                                             bom.ChildpartCost = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
-                                            //bom.CurrencyCode = row["Purchasing Currency"].ToString();
+                                            
+                                            bom.RMCodeId = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "RM_003" : row["RM Code"].ToString().Trim();
                                             bom.CurrencyCode = string.IsNullOrEmpty(row["Purchasing Currency"].ToString().Trim()) ? "" : row["Purchasing Currency"].ToString().Trim();
                                             bom.Scraptotalqty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
                                             //bom.TotalScrapQty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
@@ -222,13 +217,8 @@ namespace EconomicTracking
 
                             }
                         };
-
-
-
                         worker.RunWorkerCompleted += worker_RunWorkerCompleted;
                         worker.RunWorkerAsync();
-
-
                     }
                     catch (Exception exc)
                     {
@@ -237,8 +227,6 @@ namespace EconomicTracking
                         Xceed.Wpf.Toolkit.MessageBox.Show("Failed To uploaded .......", "BOM Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     }
-
-
                 }
 
                 else
@@ -271,9 +259,11 @@ namespace EconomicTracking
                 lblFileName.Text = "Failed uploaded successfully.......";
                 Xceed.Wpf.Toolkit.MessageBox.Show("Failed uploaded successfully Either File is open/invaild data/File is corrupted.......", "BOM Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            if (worker != null) { 
             worker.Dispose();
             worker = null;
             GC.Collect();
+            }
         }
         public static void RemoveNullColumnFromDataTable(DataTable dt)
         {
