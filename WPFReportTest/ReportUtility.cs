@@ -60,6 +60,7 @@ namespace WPFReportTest
                 //rc.SetDataSource(ds);
                 rc.Database.Tables["EconomicTracking_Dal_BillOfMaterialModel"].SetDataSource(objDataSource[0].BOM);
                 rc.Database.Tables["EconomicTracking_Dal_CustomerAssemblyModel"].SetDataSource(objDataSource);
+                rc.Database.Tables["EconomicTracking_Dal_OverHeadModel"].SetDataSource(objDataSource[0].OH);
                 Viewer.setReportSource(rc);
                 Viewer.ShowDialog();
             }

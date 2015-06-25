@@ -27,5 +27,7 @@ namespace EconomicTracking.Dal
 
         public string Category { get; set; }
         public List<BillOfMaterial> BOM { get; set; }
+
+        public virtual ICollection<OverHead> OverHead { get; set; }
     }
 }

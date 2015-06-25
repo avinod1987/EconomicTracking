@@ -42,19 +42,78 @@ namespace EconomicTracking.Dal
         public decimal TotalcostinPurCurr { get; set; }
         
         public decimal ChildpartCost { get; set; }
-        public string CurrencyCode { get; set; }
+        //public string CurrencyCode { get; set; }
         
         public decimal Exchangerate { get; set; }
+
+
+        [ForeignKey("Scrap")]
+        public string ScrapCode { get; set; }
+
+        public virtual Scrap Scrap { get; set; }
+
+        public string ScrpUOM { get; set; }
+
+        [ForeignKey("Material")]
+        public string MaterialCode { get; set; }
+        public virtual Material Material { get; set; }
+
+        [ForeignKey("Currency")]
+        public string CurrencyCode { get; set; }
+
+        public virtual Currency Currency { get; set; }
+
+        //public virtual ICollection<OverHead> OverHead { get; set; }
 
     }
     public class RMCode
     {
         [Key]
-     [DatabaseGenerated(DatabaseGeneratedOption.None)]   
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]   
         public string RMCodeId { get; set; }
 
         public string RMName { get; set; }
 
         public virtual ICollection<BillOfMaterial> billRmcode { get; set; }
     }
+
+    public class OverHead
+    {
+        [Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+
+        [ForeignKey("OverHeadCode")]
+        public string OverHeadCd { get; set; }
+
+        public virtual OverHeadCode OverHeadCode { get; set; }
+
+        //public string overheadtype { get; set; }
+
+        public decimal overheadinsetcur { get; set; }
+
+        [ForeignKey("Currency")]
+        public string CurrencyCode { get; set; }
+
+        public virtual Currency Currency { get; set; }
+
+        //public string currency { get; set; }
+
+        public decimal overheadINR { get; set; }
+
+        public decimal Exchangerate { get; set; }
+        //[NotMapped]
+        public virtual CustomerAssembly CustomerAssembly { get; set; }
+
+    }
+
+    public class OverHeadCode
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string OverHeadCd { get; set; }
+
+        public string overheadtype { get; set; }
+    }
+
 }

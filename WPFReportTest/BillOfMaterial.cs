@@ -24,4 +24,16 @@ namespace EconomicTracking.Dal
         public decimal ToalCost { get; set; }
         public string CurrencyCode { get; set; }
     }
+    public class OverHeadModel
+    {
+        public int Id { get; set; }
+
+        public string OverHeadType { get; set; }
+
+        public decimal OverheadINR { get; set; }
+
+        public decimal OverheadPurrCurr { get; set; }
+
+        public string CurrCode { get; set; }
+    }
 }

@@ -125,6 +125,12 @@ namespace EconomicTracking
                                         var custRow = custDt.Rows[0];
                                         string cusass = custRow["Cust Assy No"].ToString().Trim();
                                         string cus=custRow["Customer"].ToString().Trim();
+
+                                        var comlist = context.Materials.ToList();
+                                        var scrplist = context.Scraps.ToList();
+                                        var currlist = context.Currency.ToList();
+                                        var Ohlist = context.OverHeadCode.ToList();
+
                                       int k=  (from c in context.CustomerAssembly
                                             where (c.CustAssyNo==cusass && c.Customer==cus)
                                                    select c).Count();
@@ -138,62 +144,129 @@ namespace EconomicTracking
                                             context.BillOfMaterial.RemoveRange(context.BillOfMaterial.Where(x => x.CustAssyNo == cus));
                                             }
                                         }
-                                        if (messboxreslt == MessageBoxResult.Yes||k<=0) {
-                                        custAssm.Customer = custRow["Customer"].ToString().Trim();
-                                        custAssm.CustAssyNo = custRow["Cust Assy No"].ToString().Trim();
-                                        custAssm.CustAssyName = custRow["Cust Assy Name"].ToString().Trim();
-                                        custAssm.LocalAssyNo = custRow["Local Assy No"].ToString().Trim();
-                                        custAssm.LocalAssyName = custRow["Local Assy Name"].ToString().Trim();
-                                        custAssm.Quantity = !string.IsNullOrEmpty(custRow["QtyCparts"].ToString().Trim()) ? Convert.ToDecimal(custRow["QtyCparts"].ToString().Trim()) : 0;
-                                        custAssm.SettlementRef = custRow["Settlement Ref"].ToString().Trim();
-                                        custAssm.TotalCost = !string.IsNullOrEmpty(custRow["Total Cost"].ToString().Trim()) ? Convert.ToDecimal(custRow["Total Cost"].ToString().Trim()) : 0;
-                                        custAssm.Family = custRow["Family"].ToString().Trim();
-                                        custAssm.Category = custRow["Category"].ToString().Trim();
-                                        //custAssm.Quantity = custRow["Settlement Ref"].ToString().Trim());
-                                        custAssm.BOM = new List<BillOfMaterial>();
-                                        foreach (DataRow row in dt.Rows)
+                                        if (messboxreslt == MessageBoxResult.Yes || k <= 0)
                                         {
-                                            var bom = new BillOfMaterial();
-                                            var rmcode=new RMCode();
-                                            bom.CustAssyNo = custAssm.CustAssyNo;
-                                            bom.CustomerPartNo = string.IsNullOrEmpty(row["Cust Part No"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
-                                            bom.CustomerPartName = string.IsNullOrEmpty(row["Cust Part Name"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
-                                            bom.LocalPartNo = string.IsNullOrEmpty(row["Local Part No"].ToString().Trim()) ? "" : row["Local Part No"].ToString().Trim();
-                                            //bom.SettlementRef = string.IsNullOrEmpty(row["Settlement Ref"].ToString().Trim()) ? "" : row["Local Part No"].ToString().Trim();
-                                            bom.LocalPartName = string.IsNullOrEmpty(row["Local Part Name"].ToString().Trim()) ? "" : row["Local Part Name"].ToString().Trim();
-                                            bom.Quantity = string.IsNullOrEmpty(row["Qty In Assy"].ToString().Trim()) ? 0 : Convert.ToInt32(row["Qty In Assy"].ToString().Trim());
-                                            bom.UOM = string.IsNullOrEmpty(row["UOM"].ToString().Trim()) ? "" : row["UOM"].ToString().Trim();
-                                            bom.RMUOM = string.IsNullOrEmpty(row["RM_UOM"].ToString().Trim()) ? "" : row["RM_UOM"].ToString().Trim();
-                                            //bom.RawMaterial = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "" : row["RM Code"].ToString().Trim();
-                                            bom.Commodity = string.IsNullOrEmpty(row["RMCommodity"].ToString().Trim()) ? "" : row["RMCommodity"].ToString().Trim();
-                                            bom.BOMQuantity = string.IsNullOrEmpty(row["RM Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["RM Qty/part"].ToString().Trim());
-                                            bom.TotalRMqty = string.IsNullOrEmpty(row["Total RM Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total RM Qty/Assy"].ToString().Trim());
-                                            bom.Scarp = string.IsNullOrEmpty(row["Scrap Commodity"].ToString().Trim()) ? "" : row["Scrap Commodity"].ToString().Trim();
-                                            bom.ScrapQuantity = string.IsNullOrEmpty(row["Scrap Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Scrap Qty/part"].ToString().Trim());
-                                            bom.ChildPartRate = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
-                                            //bom.ToalCost = Convert.ToDecimal(row["Total cost"].ToString());
-                                            bom.ToalCost = string.IsNullOrEmpty(row["Total cost of child parts(INR)"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total cost of child parts(INR)"].ToString().Trim());
-                                            bom.TotalcostinPurCurr = string.IsNullOrEmpty(row["Total Cost in Purchasing Currency"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Cost in Purchasing Currency"].ToString().Trim());
-                                            bom.Exchangerate = string.IsNullOrEmpty(row["Exchange rate"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Exchange rate"].ToString().Trim());
-                                            bom.ChildpartCost = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
-                                            
-                                            bom.RMCodeId = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "RM_003" : row["RM Code"].ToString().Trim();
-                                            bom.CurrencyCode = string.IsNullOrEmpty(row["Purchasing Currency"].ToString().Trim()) ? "" : row["Purchasing Currency"].ToString().Trim();
-                                            bom.Scraptotalqty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
-                                            //bom.TotalScrapQty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
-                                            
+                                            custAssm.Customer = custRow["Customer"].ToString().Trim();
+                                            custAssm.CustAssyNo = custRow["Cust Assy No"].ToString().Trim();
+                                            custAssm.CustAssyName = custRow["Cust Assy Name"].ToString().Trim();
+                                            custAssm.LocalAssyNo = custRow["Local Assy No"].ToString().Trim();
+                                            custAssm.LocalAssyName = custRow["Local Assy Name"].ToString().Trim();
+                                            custAssm.Quantity = !string.IsNullOrEmpty(custRow["QtyCparts"].ToString().Trim()) ? Convert.ToDecimal(custRow["QtyCparts"].ToString().Trim()) : 0;
+                                            custAssm.SettlementRef = custRow["Settlement Ref"].ToString().Trim();
+                                            custAssm.TotalCost = !string.IsNullOrEmpty(custRow["Total Cost"].ToString().Trim()) ? Convert.ToDecimal(custRow["Total Cost"].ToString().Trim()) : 0;
+                                            custAssm.Family = custRow["Family"].ToString().Trim();
+                                            custAssm.Category = custRow["Category"].ToString().Trim();
+                                            //custAssm.Quantity = custRow["Settlement Ref"].ToString().Trim());
+                                            custAssm.BOM = new List<BillOfMaterial>();
+                                            custAssm.OverHead = new List<OverHead>();
+                                            foreach (DataRow row in dt.Rows)
+                                            {
 
-                                            custAssm.BOM.Add(bom);
+                                                var bom = new BillOfMaterial();
+                                                //var Cusassoh = new CustomerAssembly();
+                                                var rmcode = new RMCode();
 
-                                        }
+                                                if (row["Cust Part No"] != null && !string.IsNullOrEmpty(row["Cust Part No"].ToString().Trim()))
+                                                {
+                                                    if (Ohlist.Any(u => u.OverHeadCd == row["Cust Part No"].ToString().Trim()))
+                                                    {
+                                                        Ohlist.Where(z => z.OverHeadCd == row["Cust Part No"].ToString().Trim()).ToList().ForEach(x =>
+                                                        {
+                                                            var Oh = new OverHead();
+                                                            Oh.overheadinsetcur = string.IsNullOrEmpty(row["Total Cost in Purchasing Currency"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Cost in Purchasing Currency"].ToString().Trim());
+                                                            Oh.overheadINR = string.IsNullOrEmpty(row["Total cost of child parts(INR)"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total cost of child parts(INR)"].ToString().Trim());
+                                                            Oh.OverHeadCd = x.OverHeadCd;
+                                                            Oh.Exchangerate = string.IsNullOrEmpty(row["Exchange rate"].ToString().Trim()) ? 1 : Convert.ToDecimal(row["Exchange rate"].ToString().Trim());
+                                                            currlist.Where(j => j.CurrencyCode == row["Currency Code"].ToString().Trim()).ToList().ForEach(f =>
+                                                            {
+                                                                //string rmname = f.CurrencyCode;
+                                                                if (!string.IsNullOrEmpty(row["Currency Code"].ToString().Trim()) && row["Currency Code"] != null)
+                                                                {
+                                                                    if (row["Currency Code"].ToString() == f.CurrencyCode)
+                                                                    {
+                                                                        Oh.CurrencyCode = f.CurrencyCode;
+                                                                        custAssm.OverHead.Add(Oh);
+                                                                    }
+                                                                }
+                                                            });
 
-                                        //entities.Add(custAssm);
-                                        //custAssm.BOM = bomEntities;
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        bom.CustAssyNo = custAssm.CustAssyNo;
+                                                        bom.CustomerPartNo = string.IsNullOrEmpty(row["Cust Part No"].ToString().Trim()) ? "" : row["Cust Part No"].ToString().Trim();
+                                                        bom.CustomerPartName = string.IsNullOrEmpty(row["Cust Part Name"].ToString().Trim()) ? "" : row["Cust Part Name"].ToString().Trim();
+                                                        bom.LocalPartNo = string.IsNullOrEmpty(row["Local Part No"].ToString().Trim()) ? "" : row["Local Part No"].ToString().Trim();
+                                                        //bom.SettlementRef = string.IsNullOrEmpty(row["Settlement Ref"].ToString().Trim()) ? "" : row["Local Part No"].ToString().Trim();
+                                                        bom.LocalPartName = string.IsNullOrEmpty(row["Local Part Name"].ToString().Trim()) ? "" : row["Local Part Name"].ToString().Trim();
+                                                        bom.Quantity = string.IsNullOrEmpty(row["Qty In Assy"].ToString().Trim()) ? 0 : Convert.ToInt32(row["Qty In Assy"].ToString().Trim());
+                                                        bom.UOM = string.IsNullOrEmpty(row["UOM"].ToString().Trim()) ? "" : row["UOM"].ToString().Trim();
+                                                        bom.RMUOM = string.IsNullOrEmpty(row["RM_UOM"].ToString().Trim()) ? "" : row["RM_UOM"].ToString().Trim();
+                                                        //bom.RawMaterial = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "" : row["RM Code"].ToString().Trim();
+                                                        bom.Commodity = string.IsNullOrEmpty(row["RMCommodity"].ToString().Trim()) ? "" : row["RMCommodity"].ToString().Trim();
+                                                        bom.BOMQuantity = string.IsNullOrEmpty(row["RM Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["RM Qty/part"].ToString().Trim());
+                                                        bom.TotalRMqty = string.IsNullOrEmpty(row["Total RM Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total RM Qty/Assy"].ToString().Trim());
+                                                        bom.Scarp = string.IsNullOrEmpty(row["Scrap Commodity"].ToString().Trim()) ? "" : row["Scrap Commodity"].ToString().Trim();
+                                                        bom.ScrapQuantity = string.IsNullOrEmpty(row["Scrap Qty/part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Scrap Qty/part"].ToString().Trim());
+                                                        bom.ChildPartRate = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
+                                                        //bom.ToalCost = Convert.ToDecimal(row["Total cost"].ToString());
+                                                        bom.ToalCost = string.IsNullOrEmpty(row["Total cost of child parts(INR)"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total cost of child parts(INR)"].ToString().Trim());
+                                                        bom.TotalcostinPurCurr = string.IsNullOrEmpty(row["Total Cost in Purchasing Currency"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Cost in Purchasing Currency"].ToString().Trim());
+                                                        bom.Exchangerate = string.IsNullOrEmpty(row["Exchange rate"].ToString().Trim()) ? 1 : Convert.ToDecimal(row["Exchange rate"].ToString().Trim());
+                                                        bom.ChildpartCost = string.IsNullOrEmpty(row["Cost/child part"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Cost/child part"].ToString().Trim());
 
-                                        context.CustomerAssembly.Add(custAssm);
-                                        context.SaveChanges();
-                                        }
+                                                        bom.RMCodeId = string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) ? "RM_003" : row["RM Code"].ToString().Trim();
+                                                        bom.CurrencyCode = string.IsNullOrEmpty(row["Purchasing Currency"].ToString().Trim()) ? "" : row["Purchasing Currency"].ToString().Trim();
+                                                        bom.Scraptotalqty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
+                                                        //bom.Scraptotalqty = string.IsNullOrEmpty(row["Total Scrap Qty/Assy"].ToString().Trim()) ? 0 : Convert.ToDecimal(row["Total Scrap Qty/Assy"].ToString().Trim());
 
+                                                        comlist.Where(y => y.MaterialCode == row["RM Code"].ToString()).ToList().ForEach(c =>
+                                                        {
+                                                            //string rmname=c.MaterialCode;
+                                                            if (!string.IsNullOrEmpty(row["RM Code"].ToString().Trim()) && row["RM Code"] != null)
+                                                            {
+                                                                if (row["RM Code"].ToString() == c.MaterialCode)
+                                                                {
+                                                                    bom.MaterialCode = c.MaterialCode;
+                                                                }
+                                                            }
+                                                        });
+                                                        scrplist.Where(y => y.ScrapCode == row["Scrap Code"].ToString()).ToList().ForEach(d =>
+                                                        {
+                                                            //string rmname = d.ScrapCode;
+                                                            if (!string.IsNullOrEmpty(row["Scrap Code"].ToString().Trim()) && row["Scrap Code"] != null)
+                                                            {
+                                                                if (row["Scrap Code"].ToString() == d.ScrapCode)
+                                                                {
+                                                                    bom.ScrapCode = d.ScrapCode;
+                                                                }
+                                                            }
+                                                        });
+                                                        currlist.Where(y => y.CurrencyCode == row["Currency Code"].ToString()).ToList().ForEach(f =>
+                                                        {
+                                                            //string rmname = f.CurrencyCode;
+                                                            if (!string.IsNullOrEmpty(row["Currency Code"].ToString().Trim()) && row["Currency Code"] != null)
+                                                            {
+                                                                if (row["Currency Code"].ToString() == f.CurrencyCode)
+                                                                {
+                                                                    bom.CurrencyCode = f.CurrencyCode;
+                                                                }
+                                                            }
+                                                        });
+                                                        custAssm.BOM.Add(bom);
+                                                    }
+                                                }
+
+                                                }
+
+                                                //entities.Add(custAssm);
+                                                //custAssm.BOM = bomEntities;
+
+                                                context.CustomerAssembly.Add(custAssm);
+                                                context.SaveChanges();
+                                            }
+                                        
                                     }
                                     catch (Exception ex)
                                     {

@@ -28,6 +28,7 @@
                             <DataGridTextColumn Binding="{Binding CustomerName}" Header="CustomerName" />
                             <DataGridTextColumn Binding="{Binding SettlementFrom,StringFormat={}{0:dd MMM yyyy}}" Header="SettlementFromDate" />
                             <DataGridTextColumn Binding="{Binding SettlementTo,StringFormat={}{0:dd MMM yyyy}}" Header="SettlementToDate" />
+                            <DataGridTextColumn Binding="{Binding SettlementRef}" Header="SettlementRef" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>

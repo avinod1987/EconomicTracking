@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\EC\Repos\EconomicTracking\App.xaml
-17-1843012281
+23-1510642275
 21337039290
-27644250632
+33-1335265910
 54-1638304416
-BOMReports.xaml;CustomerInfo.xaml;EditBOM.xaml;EditSalsQty.xaml;EditSettlement.xaml;FinalSReports.xaml;MainWindow.xaml;Page1.xaml;ReciepyReports.xaml;Recovery.xaml;SalesQtyReports.xaml;Settings.xaml;SettlementControl.xaml;SettlementReports.xaml;UploadBom.xaml;UploadFinalReport.xaml;UploadSalesQty.xaml;
+BOMReports.xaml;CreateMember.xaml;CustomerInfo.xaml;DeleteMember.xaml;EditBOM.xaml;EditSalsQty.xaml;EditSettlement.xaml;FinalSReports.xaml;LoginScreen.xaml;MainWindow.xaml;MemberPassReset.xaml;Page1.xaml;PasswordReset.xaml;ReciepyReports.xaml;Recovery.xaml;SalesQtyReports.xaml;Settings.xaml;SettlementControl.xaml;SettlementReports.xaml;UploadBom.xaml;UploadFinalReport.xaml;UploadSalesQty.xaml;UserControls\AutoCompleteComboBoxStyle.xaml;
 
 False
 

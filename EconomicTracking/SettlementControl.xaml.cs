@@ -97,11 +97,11 @@ namespace EconomicTracking
                               settlement.Scarp = new List<SettlementScarp>();
                               curlist.ForEach(x =>
                               {
-                                  string mname = x.CurrencyCode;
+                                  string mname = x.CurrencyName;
                                   if (row[mname] != null && !string.IsNullOrEmpty(row[mname].ToString()))
                                   {
                                       var curr = new SettlementCurrency();
-                                      curr.CurrencyCode = x.CurrencyCode;
+                                      curr.CurrencyCode = x.CurrencyName;
                                       curr.Rate = Convert.ToDecimal(row[mname].ToString());
                                       //curr.Settlement_Id = settlement.Id;
                                       settlement.Currency.Add(curr);

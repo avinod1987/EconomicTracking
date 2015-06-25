@@ -27,6 +27,25 @@ namespace EconomicTracking
             di.Attributes &= ~FileAttributes.ReadOnly;
            // ClearReadOnly(di);
             Database.SetInitializer<EconomicsTrackingDbContext>(null);
+
+                
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            LoginScreen win = new LoginScreen();
+            win.ShowDialog();
+            if (!win.DialogResult.GetValueOrDefault())
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                var frm = new MainWindow();
+                Current.MainWindow = frm;
+                frm.Show();
+            }
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

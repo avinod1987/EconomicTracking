@@ -33,6 +33,14 @@
                         <MenuItem x:Name="Recovery" Header="Recovery"  Click="Recovery_Click"/>
                         <MenuItem Header="Final Reports" Click="FinalSReports_Click" />
                     </MenuItem>
+                    <MenuItem Header="Reset">
+                        <MenuItem Header="Password" Click="MenuItem_Click_9"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Member">
+                        <MenuItem Header="Create" Click="MenuItem_Click_6"></MenuItem>
+                        <MenuItem Header="Delete" Click="MenuItem_Click_8"></MenuItem>
+                        <MenuItem Header="PasswordReset" Click="MenuItem_Click_7"></MenuItem>
+                    </MenuItem>
                 </Menu>
             </mdi:MdiContainer.Menu>
         </mdi:MdiContainer>

@@ -224,15 +224,31 @@
     <Compile Include="BOMReports.xaml.cs">
       <DependentUpon>BOMReports.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateMember.xaml.cs">
+      <DependentUpon>CreateMember.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteMember.xaml.cs">
+      <DependentUpon>DeleteMember.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditBOM.xaml.cs">
       <DependentUpon>EditBOM.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditSalsQty.xaml.cs">
       <DependentUpon>EditSalsQty.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MemberPassReset.xaml.cs">
+      <DependentUpon>MemberPassReset.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PasswordReset.xaml.cs">
+      <DependentUpon>PasswordReset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AutoCompleteTextBox.cs" />
     <Compile Include="WaterMark.cs" />
     <Compile Include="EditSettlement.xaml.cs">
       <DependentUpon>EditSettlement.xaml</DependentUpon>
@@ -276,7 +292,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CreateMember.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomerInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeleteMember.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -296,6 +320,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoginScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,7 +339,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MemberPassReset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PasswordReset.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -350,6 +386,10 @@
     <Page Include="UploadSalesQty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AutoCompleteComboBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +478,14 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cancel.png" />
+    <Resource Include="Images\LoginKey.png" />
+    <Resource Include="Images\Login.png" />
+    <Resource Include="Images\keee.png" />
+    <Resource Include="Images\ererer.png" />
+    <Resource Include="Images\eeeee.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NewFolder1\EconomicTracking.mdf">

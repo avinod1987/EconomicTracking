@@ -225,6 +225,30 @@ namespace EconomicTracking
             });
         }
 
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            CreateMember member = new CreateMember();
+            member.ShowDialog();
+        }
+
+        private void MenuItem_Click_7(object sender, RoutedEventArgs e)
+        {
+            MemberPassReset memberpassreser = new MemberPassReset();
+            memberpassreser.ShowDialog();
+        }
+
+        private void MenuItem_Click_8(object sender, RoutedEventArgs e)
+        {
+            DeleteMember memberdelete = new DeleteMember();
+            memberdelete.ShowDialog();
+        }
+
+        private void MenuItem_Click_9(object sender, RoutedEventArgs e)
+        {
+            PasswordReset passreset = new PasswordReset();
+            passreset.ShowDialog();
+        }
+
         //Recovery
 
 

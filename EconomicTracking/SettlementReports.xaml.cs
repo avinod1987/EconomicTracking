@@ -32,7 +32,7 @@ namespace EconomicTracking
                 using (var context = new EconomicsTrackingDbContext())
                 {
                     sList = await context.Settlements.Include("Commodity")
-                                               .Include("Scarp").Include("Currency").Where(x => x.SettlementRef == cbmSettlement.SelectedValue.ToString()).ToListAsync();
+                                               .Include("Scarp").Include("Currency").Where(x => x.SettlementRef == cbmSettlement.SelectedValue.ToString() && x.CustomerName == cbmCustomer.SelectedItem.ToString()).ToListAsync();
                 }
                 if (sList.Any())
                 {
@@ -41,9 +41,8 @@ namespace EconomicTracking
                     gridSettlementcurrency.Visibility = Visibility.Visible;
                     gridSettlementscrap.Visibility = Visibility.Visible;
                     Showreportbutton.Visibility = Visibility.Visible;
-                    var sslist = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo }).ToList();
-
-                    gridSettlement.ItemsSource = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo }).Take(1).ToList();
+                    //var sslist = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo,x.SettlementRef }).ToList();
+                    gridSettlement.ItemsSource = sList.Select(x => new { x.Id, x.CustomerId, x.CustomerName, x.SettlementFrom, x.SettlementTo, x.SettlementRef }).Take(1).ToList();
                     gridScrap.ItemsSource = sList.FirstOrDefault().Scarp.Select(x => new { x.ScrapName, x.Rate }).ToList();
                     gridCurrency.ItemsSource = sList.FirstOrDefault().Currency.Select(x => new { x.CurrencyCode, x.Rate }).ToList();
                     gridCommodity.ItemsSource = sList.FirstOrDefault().Commodity.Select(x => new { x.MaterialName, x.Rate }).ToList();
@@ -58,8 +57,6 @@ namespace EconomicTracking
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            
-            
             if (cbmSettlement.SelectedValue != null && cbmCustomer.SelectedValue!=null)
             {
 
@@ -80,7 +77,7 @@ namespace EconomicTracking
                         //cbmSettlement.SelectedValue.ToString()
 
                         sList = await context.Settlements.Include("Commodity")
-                                                       .Include("Scarp").Include("Currency").Where(x => x.SettlementRef == cbmSettlement.SelectedValue.ToString()).ToListAsync();
+                                                       .Include("Scarp").Include("Currency").Where(x => x.SettlementRef == cbmSettlement.SelectedValue.ToString()  &&x.CustomerName==cbmCustomer.SelectedItem.ToString()).ToListAsync();
                         //sList = sListTemp.Where(x => x.SettlementFrom >= dtSettleFrom.SelectedDate.Value && x.SettlementTo <= dtSettleTo.SelectedDate.Value).ToList();
 
                         var setle = new List<SettlementModel>();
@@ -167,10 +164,7 @@ namespace EconomicTracking
 
         private void cbmCustomer_Loaded(object sender, RoutedEventArgs e)
         {
-
-
             cbmCustomer.ItemsSource = new EconomicsTrackingDbContext().Settlements.Select(x => x.CustomerName).Distinct().OrderBy(x => x).ToList();
-
 
         }
 
@@ -188,15 +182,15 @@ namespace EconomicTracking
             }
         }
 
-        private void cbmCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cbmCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbmSettlement.ItemsSource = new EconomicsTrackingDbContext().Settlements.Where(y => y.CustomerName == cbmCustomer.SelectedValue.ToString()).Select(x => x.SettlementRef).ToList();
+            cbmSettlement.ItemsSource = await new EconomicsTrackingDbContext().Settlements.Where(y => y.CustomerName == cbmCustomer.SelectedValue.ToString()).Select(x => x.SettlementRef).Distinct().ToListAsync();
 
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (cbmCustomer.SelectedValue != null)
+            if (cbmCustomer.SelectedIndex!=-1)
             {
                 
                 if (!string.IsNullOrEmpty(cbmCustomer.SelectedValue.ToString()) && dtSettleFrom.SelectedDate.HasValue && dtSettleTo.SelectedDate.HasValue)

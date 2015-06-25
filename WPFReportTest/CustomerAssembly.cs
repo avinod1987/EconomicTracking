@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFReportTest;
 
 namespace EconomicTracking.Dal
 {
@@ -24,5 +25,7 @@ namespace EconomicTracking.Dal
 
         public string Category { get; set; }
         public List<BillOfMaterialModel> BOM { get; set; }
+
+        public List<OverHeadModel> OH { get; set; }
     }
 }

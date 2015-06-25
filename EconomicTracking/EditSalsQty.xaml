@@ -59,13 +59,12 @@
                 <grid:DataGridTextColumn Binding="{Binding Quantity,Mode=TwoWay}" EditingElementStyle="{StaticResource CellEditStyle}"  Width="80" Header="Quantity"></grid:DataGridTextColumn>
             </grid:DataGrid.Columns>
             <grid:DataGrid.RowValidationRules>
-                <dc:SalesValidationRule ValidationStep="RawProposedValue"></dc:SalesValidationRule>
             </grid:DataGrid.RowValidationRules>
         </grid:DataGrid>
 
         <ComboBox Name="CustomerNamecom" Loaded="CustomerNamecom_Loaded" SelectionChanged="CustomerNamecom_SelectionChanged" HorizontalAlignment="Left" Margin="69,9,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="CustomerAssidcom" SelectionChanged="CustomerAssidcom_SelectionChanged" HorizontalAlignment="Left" Margin="317,9,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Visibility="Hidden"  Name="ShowSalesqtybtn" Click="ShowSalesqtybtn_Click" Content="DeletesalesItem" HorizontalAlignment="Left" Margin="446,10,0,0" VerticalAlignment="Top" Width="90"/>
+        <ComboBox Name="CustomerAssidcom" HorizontalAlignment="Left" Margin="317,9,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button  Name="ShowSalesqtybtn" Click="ShowSalesqtybtn_Click" Content="DeletesalesItem" HorizontalAlignment="Left" Margin="518,8,-62,0" VerticalAlignment="Top" Width="90"/>
         <Label Content="CustomerName" HorizontalAlignment="Left" Margin="-34,6,0,0" VerticalAlignment="Top" Width="103" RenderTransformOrigin="-0.065,0.55"/>
         <Label Content="CustomerAssemblyId" HorizontalAlignment="Left" Margin="194,6,0,0" VerticalAlignment="Top" Width="123" RenderTransformOrigin="-0.065,0.55"/>
         <TextBox Visibility="Hidden"   PreviewTextInput="Saleqtytxt_PreviewTextInput" PreviewKeyDown="Saleqtytxt_PreviewKeyDown"  Name="Saleqtytxt" Style="{StaticResource MyWaterMarkStyle}"  Tag="Sales Quantity" HorizontalAlignment="Left" Height="35" Margin="251,325,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.524,0.579"/>
@@ -84,21 +83,22 @@
         </DatePicker>
         <Button Visibility="Hidden" Name="salessavebtn" Content="Save" Click="salessavebtn_Click" HorizontalAlignment="Left" Margin="394,68,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Visibility="Hidden" Name="addsalesbtn" Content="AddSalesDetails" Click="AddSalesQtybtn_Click" HorizontalAlignment="Left" Margin="76,373,0,0" VerticalAlignment="Top" Width="133"/>
-        <Button Click="Button_Click" Content="AddSalesItem" HorizontalAlignment="Left" Margin="541,11,-85,0" VerticalAlignment="Top" Width="90"/>
-        <DatePicker Width="170"  Name="Fromsaledate" HorizontalAlignment="Left" Margin="18,36,0,0" VerticalAlignment="Top" SelectedDateFormat="Long">
+        <Button Click="Button_Click" Content="AddSalesItem" HorizontalAlignment="Left" Margin="613,9,-157,0" VerticalAlignment="Top" Width="90"/>
+        <DatePicker Width="170"  Name="Fromsaledate" HorizontalAlignment="Left" Margin="73,35,0,0" VerticalAlignment="Top" SelectedDateFormat="Long">
             <DatePicker.Resources>
                 <Style TargetType="DatePickerTextBox">
                     <Setter Property="Text" Value="Enter SalesQty From Date"></Setter>
                 </Style>
             </DatePicker.Resources>
         </DatePicker>
-        <DatePicker Name="Tosalesdate" Width="160" HorizontalAlignment="Left" Margin="197,35,0,0" VerticalAlignment="Top" SelectedDateFormat="Long">
+        <DatePicker Name="Tosalesdate" Width="160" HorizontalAlignment="Left" Margin="248,36,0,0" VerticalAlignment="Top" SelectedDateFormat="Long">
             <DatePicker.Resources>
                 <Style TargetType="DatePickerTextBox">
                     <Setter Property="Text" Value="Enter SalesQty To Date"></Setter>
                 </Style>
             </DatePicker.Resources>
         </DatePicker>
-        <Button Name="Showbydate" Click="Showbydate_Click" Content="Show by date" HorizontalAlignment="Left" Margin="362,36,0,0" VerticalAlignment="Top" Width="84"/>
+        <Button Name="Showbydate" Click="Showbydate_Click" Content="Show by date" HorizontalAlignment="Left" Margin="413,36,0,0" VerticalAlignment="Top" Width="84"/>
+        <Button Content="Show" Click="Button_Click_1" HorizontalAlignment="Left" Margin="438,9,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </UserControl>

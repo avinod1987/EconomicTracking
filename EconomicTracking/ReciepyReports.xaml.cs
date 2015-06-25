@@ -85,37 +85,42 @@ namespace EconomicTracking
             if (CusAssIdCombo.SelectedIndex != -1) { 
             ds = null;
             getdetails();
+            this.Cursor = System.Windows.Input.Cursors.Wait;
             recepie crp = new recepie();
             crp.SetDataSource(ds);
             ReportViewerUI rp = new ReportViewerUI();
             rp.setReportSource(crp);
             rp.ShowDialog();
             crp.Dispose();
+            this.Cursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
         private void getdetails()
         {
+            //var commlist = context.Materials.ToList();
             if (ds == null && CusAssIdCombo.SelectedIndex!=-1)
             {
                 var sList = new List<BillOfMaterial>();
-                sList = context.BillOfMaterial.Select(x => x).Where(x => x.CustAssyNo == CusAssIdCombo.SelectedItem.ToString()).ToList();
+                sList = context.BillOfMaterial.Include("Material").Include("Scrap").Include("Currency").Select(x => x).Where(x => x.CustAssyNo == CusAssIdCombo.SelectedItem.ToString()).ToList();
                 var comditylist = (from s in sList
                                    where s.LocalPartName != string.Empty && s.LocalPartNo != string.Empty && s.Quantity != 0 && s.UOM != ""
-                                   group s by new { commodity = s.Commodity, uom = s.RMUOM.ToLower() == "g" || s.RMUOM.ToLower() == "gm" ? "KG" : s.RMUOM.ToLower() == "ml" || s.RMUOM.ToLower() == "m" ? "LITER" : s.RMUOM.ToUpper() } into d
+                                   group s by new { commodity = s.Material.MaterialName, uom = s.RMUOM.ToLower() == "g" || s.RMUOM.ToLower() == "gm" ? "KG" : s.RMUOM.ToLower() == "ml" || s.RMUOM.ToLower() == "m" ? "LITER" : s.RMUOM.ToUpper() } into d                           
                                    select new { CommodityName = d.Key.commodity, UOM = d.Key.uom, RamMaterialWeigth = d.Sum(x => x.RMUOM.ToLower() == "g" || x.RMUOM == "gm" ? (x.TotalRMqty) / 100 : x.RMUOM.ToLower() == "m" || x.RMUOM == "ml" ? (x.TotalRMqty) / 1000 : x.TotalRMqty) }).OrderBy(x => x.CommodityName);
                 var scraplist = (from s in sList
                                  where s.LocalPartName != string.Empty && s.LocalPartNo != string.Empty && s.Quantity != 0 && s.UOM != ""
-                                 group s by new { commodity = s.Scarp, uom = s.RMUOM.ToLower() == "g" || s.RMUOM.ToLower() == "gm" ? "KG" : s.RMUOM.ToLower() == "ml" || s.RMUOM.ToLower() == "m" ? "LITER" : s.RMUOM.ToUpper() } into d
+                                 group s by new { commodity =s.Scrap.ScrapName, uom = s.RMUOM.ToLower() == "g" || s.RMUOM.ToLower() == "gm" ? "KG" : s.RMUOM.ToLower() == "ml" || s.RMUOM.ToLower() == "m" ? "LITER" : s.RMUOM.ToUpper() } into d
                                  select new { ScarpCommodityName = d.Key.commodity, UOM = d.Key.uom, ScrapQuanity = d.Sum(x => x.RMUOM.ToLower() == "g" || x.RMUOM == "gm" ? (x.Scraptotalqty) / 100 : x.RMUOM.ToLower() == "m" || x.RMUOM == "ml" ? (x.Scraptotalqty) / 1000 : x.Scraptotalqty) }).OrderBy(x => x.ScarpCommodityName);
                 var currencylist = (from s in sList
                                     where s.ToalCost != 0
-                                    group s by new { Currency = s.CurrencyCode } into d
+                                    group s by new { Currency = s.Currency.CurrencyName } into d
                                     select new { CurrencyType = d.Key.Currency, CurrencyInINR = d.Sum(x => x.ToalCost), TotlInPurCurr = d.Sum(x => x.TotalcostinPurCurr) }).Where(x => x.TotlInPurCurr != 0).OrderBy(x => x.CurrencyType);
 
                 var overhead = context.BillOfMaterial.Where(x => x.CustAssyNo == CusAssIdCombo.SelectedItem.ToString() && x.LocalPartNo == "" && x.LocalPartName == "" && x.Quantity == 0 && x.UOM == "").Select(t => new { OverHeadType = t.CustomerPartName, OHSetmtCurencyINR = t.ToalCost, OHSetmtCurency = t.TotalcostinPurCurr, CurrencyCode = t.CurrencyCode }).ToList();
-                //d.Sum(x => x.ToalCost)
-
+                
+                var overhead1 = context.CustomerAssembly.Include("OverHead").Where(x => x.CustAssyNo == CusAssIdCombo.SelectedItem.ToString()).Take(1).ToList();
+                int i = overhead1.Select(x => x.Id).FirstOrDefault();
+                var OH=context.OverHead.Include("OverHeadCode").Where(x=>x.CustomerAssembly.Id==i).ToList();
                 ds = new Commodity();
                 DataTable dt1 = ds.CommdityRecepie;
                 DataRow dr;
@@ -150,12 +155,13 @@ namespace EconomicTracking
                 dt3.AcceptChanges();
                 DataTable dt4 = ds.OverHead;
                 DataRow dr3;
-                foreach (var r in overhead)
+                foreach (var r in OH)
                 {
-                    dr3 = dt4.NewRow();
-                    dr3["OHType"] = r.OverHeadType;
-                    dr3["OHinINR"] = r.OHSetmtCurencyINR; dr3["OHinSettCurr"] = r.OHSetmtCurency;
-                    dt4.Rows.Add(dr3);
+                    //var f = r.OverHeadCd;
+                        dr3 = dt4.NewRow();
+                        dr3["OHType"] =r.OverHeadCode.overheadtype;
+                        dr3["OHinINR"] = r.overheadINR; dr3["OHinSettCurr"] = r.overheadinsetcur;
+                        dt4.Rows.Add(dr3);
                 }
                 dt4.AcceptChanges();
             }
@@ -164,6 +170,7 @@ namespace EconomicTracking
 
         private void recepiereportbtn_Click(object sender, RoutedEventArgs e)
         {
+            this.Cursor = System.Windows.Input.Cursors.Wait;
             //Instance reference for Excel Application
             Microsoft.Office.Interop.Excel.Application objXL = null;
             //Workbook refrence
@@ -180,8 +187,8 @@ namespace EconomicTracking
                 {
                     //Adding sheet to workbook for each datatable
                     Microsoft.Office.Interop.Excel.Worksheet objSHT = (Microsoft.Office.Interop.Excel.Worksheet)objWB.Sheets.Add();
-                    //Naming sheet as SheetData1.SheetData2 etc....
-                    objSHT.Name = "SheetData" + sheetcount.ToString();
+                    //Naming sheet as SheetData1.SheetData2 etc.... "SheetData" +sheetcount.ToString()
+                    objSHT.Name =dt.TableName;
                     for (int j = 0; j < dt.Rows.Count; j++)
                     {
                         for (int i = 0; i < dt.Columns.Count; i++)
@@ -221,6 +228,7 @@ namespace EconomicTracking
                 objWB.Close();
                 //Closing excel application
                 objXL.Quit();
+                this.Cursor = System.Windows.Input.Cursors.Arrow;
 
             }
             catch (Exception ex)

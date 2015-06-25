@@ -6,7 +6,8 @@
               xmlns:grid="http://schemas.microsoft.com/wpf/2008/toolkit"
              xmlns:local="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
              xmlns:dc="clr-namespace:EconomicTracking"
-             mc:Ignorable="d" Width="661.342" Height="411.6">
+               xmlns:UC="clr-namespace:CSWPFAutoCompleteTextBox.UserControls"
+             mc:Ignorable="d" Width="684.542" Height="411.6">
     <UserControl.Resources>
         <Style x:Key="MyWaterMarkStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Template">
@@ -47,13 +48,19 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <dc:Helper1 x:Key="Helper1"></dc:Helper1>
+        <Style x:Key="EntryFieldStyle" TargetType="Grid" >
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="20,0" />
+        </Style>
 
     </UserControl.Resources>
 
     <Grid Margin="0,0,-0.4,267" RenderTransformOrigin="0.459,0.013" >
-        
-        <ComboBox x:Name="cbmCustomer" HorizontalAlignment="Left" Margin="104,5,0,0" VerticalAlignment="Top" Width="120" Loaded="cbmCustomer_Loaded" SelectionChanged="cbmCustomer_SelectionChanged" IsEditable="True"/>
-        <ComboBox SelectionChanged="cbmSettlement_SelectionChanged" x:Name="cbmSettlement" HorizontalAlignment="Left" Margin="366,4,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" />
+
+        <ComboBox x:Name="cbmCustomer" HorizontalAlignment="Left" Margin="104,5,0,0" VerticalAlignment="Top" Width="120" Loaded="cbmCustomer_Loaded" SelectionChanged="cbmCustomer_SelectionChanged"/>
+        <ComboBox  x:Name="cbmSettlement" HorizontalAlignment="Left" Margin="366,4,0,0" VerticalAlignment="Top" Width="120" />
 
         <Label Content="Customer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" RenderTransformOrigin="-0.065,0.55" Margin="10,2,0,0"/>
         <Label Content="SettlementRefId" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" RenderTransformOrigin="-0.065,0.55" Margin="245,0,0,0"/>
@@ -61,13 +68,13 @@
             <grid:DataGrid.Columns>
                 <grid:DataGridTextColumn Binding="{Binding Id,Mode=TwoWay}" Width="40" Visibility="Hidden"  IsReadOnly="True" Header="ID">
                 </grid:DataGridTextColumn>
-                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding MaterialName,Mode=OneTime,ValidatesOnExceptions=True}"  Header="Commodity">
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" IsReadOnly="True"   Binding="{Binding MaterialName,Mode=OneTime,ValidatesOnExceptions=True}"  Header="Commodity">
                 </grid:DataGridTextColumn>
                 <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding Rate,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  Width="80" Header="Price"></grid:DataGridTextColumn>
 
             </grid:DataGrid.Columns>
             <grid:DataGrid.RowValidationRules>
-                <dc:CommodityValidationRule ValidationStep="RawProposedValue"></dc:CommodityValidationRule>
+
             </grid:DataGrid.RowValidationRules>
         </grid:DataGrid>
 
@@ -75,17 +82,17 @@
             <grid:DataGrid.Columns>
                 <grid:DataGridTextColumn Binding="{Binding Id,Mode=TwoWay}" Visibility="Hidden" Width="40" IsReadOnly="True" Header="ID">
                 </grid:DataGridTextColumn>
-                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding ScrapName,Mode=TwoWay,ValidatesOnExceptions=True}"  Header="Scap">
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" IsReadOnly="True"  Binding="{Binding ScrapName,Mode=TwoWay,ValidatesOnExceptions=True}"  Header="Scap">
                 </grid:DataGridTextColumn>
                 <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding Rate,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  Width="80" Header="Price"></grid:DataGridTextColumn>
             </grid:DataGrid.Columns>
             <grid:DataGrid.RowValidationRules>
-                <dc:ScrapValidationRule ValidationStep="RawProposedValue" ></dc:ScrapValidationRule>
+
             </grid:DataGrid.RowValidationRules>
 
 
         </grid:DataGrid>
-        <grid:DataGrid Visibility="Hidden"  CanUserAddRows="False" RowEditEnding="SettmentGrid_RowEditEnding" SelectionChanged="SettmentGrid_SelectionChanged" x:Name="SettmentGrid" AutoGenerateColumns="False" AlternationCount="2" SelectionMode="Single" HorizontalAlignment="Left" Width="450" Margin="85,31,0,38.2">
+        <grid:DataGrid Visibility="Hidden" CanUserDeleteRows="False"  CanUserAddRows="False" RowEditEnding="SettmentGrid_RowEditEnding"  x:Name="SettmentGrid" AutoGenerateColumns="False" AlternationCount="2" SelectionMode="Single" HorizontalAlignment="Left" Width="450" Margin="85,31,0,38.2">
             <grid:DataGrid.Columns>
                 <grid:DataGridTextColumn Binding="{Binding SettlementRef, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="SettlementRefNo" Width="SizeToHeader" />
                 <grid:DataGridTextColumn Binding="{Binding CustomerId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="CustomerId" Width="SizeToHeader" />
@@ -120,18 +127,26 @@
         <grid:DataGrid Visibility="Hidden" PreviewKeyDown="CurrencyGrid_PreviewKeyDown" RowEditEnding="CurrencyGrid_RowEditEnding" CanUserAddRows="False" Name="CurrencyGrid" AutoGenerateColumns="False" Margin="458,111,10,-153.8" >
             <grid:DataGrid.Columns>
                 <grid:DataGridTextColumn Header="ID" Visibility="Hidden" Binding="{Binding Id,Mode=TwoWay}" IsReadOnly="True"/>
-                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" Header="CurrencyCode" Binding="{Binding CurrencyCode,Mode=TwoWay,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
+                <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" Header="CurrencyCode" IsReadOnly="True" Binding="{Binding CurrencyCode,Mode=TwoWay,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
                 <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}" Header="CurrencyRate" Binding="{Binding Rate,Mode=TwoWay,ValidatesOnDataErrors=True,ValidatesOnExceptions=True}"/>
             </grid:DataGrid.Columns>
         </grid:DataGrid>
-        <TextBox Visibility="Hidden" Name="Commoditynametxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CommodityName" HorizontalAlignment="Left" Height="23" Margin="0,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox Visibility="Hidden" Name="Commoditypricetxt" Style="{StaticResource MyWaterMarkStyle}"  Tag="CommodityPrice" HorizontalAlignment="Left" Height="23" Margin="120,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="104"/>
-        <TextBox Visibility="Hidden" Name="Scarpnametxt" Style="{StaticResource MyWaterMarkStyle}" Tag="ScrapName" HorizontalAlignment="Left" Height="23" Margin="229,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox Visibility="Hidden" Name="Scarppricetxt" Style="{StaticResource MyWaterMarkStyle}" Tag="ScrapName" HorizontalAlignment="Left" Height="23" Margin="349,330,0,-208.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="104"/>
-        <TextBox Visibility="Hidden" Name="currtxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CurrencyCode" HorizontalAlignment="Left" Height="23" Margin="458,331,0,-209.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="103"/>
-        <TextBox Visibility="Hidden" Name="currpricetxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CurrencyPrice" HorizontalAlignment="Left" Height="23" Margin="561,331,0,-209.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="91"/>
+        <TextBox Visibility="Hidden" Name="Commoditypricetxt" Style="{StaticResource MyWaterMarkStyle}"  Tag="CommodityPrice" HorizontalAlignment="Left" Height="28" Margin="133,354,0,-237.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="103"/>
+        <TextBox Visibility="Hidden"  Name="Scarppricetxt" Style="{StaticResource MyWaterMarkStyle}" Tag="ScrapPrice" HorizontalAlignment="Left" Height="28" Margin="366,354,0,-237.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="79"/>
+        <TextBox Visibility="Hidden"  Name="currpricetxt" Style="{StaticResource MyWaterMarkStyle}" Tag="CurrencyPrice" HorizontalAlignment="Left" Height="30" Margin="582,352,0,-237.8" TextWrapping="Wrap"  VerticalAlignment="Top" Width="93"/>
         <Button Visibility="Hidden" Name="Savebtn" Content="Save" Click="Button_Click_1" HorizontalAlignment="Left" Margin="561,57,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Visibility="Hidden" Name="Createbtn" Content="CreateNewItem" Click="Button_Click_2" HorizontalAlignment="Left" Height="27" Margin="10,303,0,-185.8" VerticalAlignment="Top" Width="105"/>
-        <Button Visibility="Hidden"  Name="Addnewitembtn" Content="AddNewItem" Click="Button_Click_3" HorizontalAlignment="Left" Height="25" Margin="10,369,0,-249.8" VerticalAlignment="Top" Width="105"/>
+        <Button Visibility="Hidden" Name="Createbtn" Content="CreateNewItem" Click="Button_Click_2" HorizontalAlignment="Left" Height="27" Margin="0,312,0,-194.8" VerticalAlignment="Top" Width="105"/>
+        <Button Visibility="Hidden"   Name="Addnewitembtn" Content="AddNewItem" Click="Button_Click_3" HorizontalAlignment="Left" Height="25" Margin="0,387,0,-267.8" VerticalAlignment="Top" Width="105"/>
+        <Button Name="Showbtn" Click="Showbtn_Click" Content="Show Data" HorizontalAlignment="Left" Margin="514,4,0,0" VerticalAlignment="Top" Width="75"/>
+        <!--<StackPanel>
+            <UC:AutoCompleteTextBox Tag="ScrapPrice" x:Name="textBox" Margin="0,0,538.4,0"/>
+        </StackPanel>-->
+        <UC:AutoCompleteTextBox Visibility="Hidden" Text="CommodityName"  LostFocus="textBox_LostFocus" KeyUp="textBox_KeyUp" GotFocus="textBox_GotFocus" x:Name="textBox" Margin="0,353,557.2,-237.8" />
+
+        <UC:AutoCompleteTextBox Visibility="Hidden" Text="ScarpName" x:Name="textBox1" Margin="241,354,324.2,-236.8" />
+
+        <UC:AutoCompleteTextBox Visibility="Hidden" Text="CurrencyCode" x:Name="textBox2" Margin="453,352,112.2,-237.8" />
+
     </Grid>
+
 </UserControl>

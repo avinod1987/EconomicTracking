@@ -4,6 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </UserControl.Resources>
     <DockPanel  Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
         <Grid DockPanel.Dock="Top" Height="164" Width="778">
             <Grid.RowDefinitions>
@@ -39,30 +44,25 @@
             </DatePicker>
 
             <Button Content="SalesQtyByMonth" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" x:Name="salesqtybymonthbtn" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Margin="640,3.2,0,0" Grid.Row="2" Click="salesqtybymonthbtn_Click"/>
-            <CheckBox x:Name="chkSelectAll" Visibility="Visible" Content="Select All" Grid.Column="1" HorizontalAlignment="Left" Margin="180,92,0,0" Grid.Row="2" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-            <ListView x:Name="lstItems" SelectionMode="Multiple" ScrollViewer.IsDeferredScrollingEnabled="True"   ItemsSource="{Binding}"  Loaded="lstItems_Loaded" Grid.Column="1" Margin="180,22,435.6,28" Grid.RowSpan="3" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="lstItems_SelectionChanged"
-                            VirtualizingStackPanel.IsVirtualizing="False">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <VirtualizingStackPanel>
-                            <CheckBox x:Name="chkcus" Content="{Binding Path=CustomerAssemblyId}" Loaded="CheckBox_Loaded" Checked="chkcus_Checked" Unchecked="chkcus_Unchecked"></CheckBox>
-                        </VirtualizingStackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListBox.Items>
-                </ListBox.Items>
+            <CheckBox x:Name="chkSelectAll" Visibility="Visible" Content="Select All" Grid.Column="1" HorizontalAlignment="Left" Margin="180,92,0,0" Grid.Row="2" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="chkSelectAll_Unchecked"/>
+            <ListView  Grid.ColumnSpan="2" Margin="180,25,431.6,32" Name="trt" Grid.RowSpan="3">
+                <ListView.View>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}" >
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Name="tgt" Checked="chkcus_Checked" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" Unchecked="chkcus_Unchecked" Content="{Binding Path=CustomerAssemblyId}"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+
+                </ListView.View>
             </ListView>
-            <!--<TreeView VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" Name="ttr" Grid.ColumnSpan="2" Margin="404,46.2,217.6,10" Grid.Row="2">
-                <TreeView.ItemTemplate>
-                    <DataTemplate>
-                    <CheckBox x:Name="chkcus1" Content="{Binding Path=CustomerAssemblyId}" Loaded="chkcus1_Loaded"></CheckBox>
-                    </DataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>-->
             <Label Grid.ColumnSpan="2" Content="CustomerName" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Width="146"/>
             <Label Content="CustomerAssemblyId" RenderTransformOrigin="-2.646,-11.466" Grid.Column="1" Margin="180,0,472.6,19.6"/>
         </Grid>
-        
+
         <Grid>
             <Grid>
                 <GroupBox x:Name="salesqtygroup" Header="Sales Quality Details" Margin="10,7,10,264" Visibility="Hidden" >
@@ -77,7 +77,7 @@
                 <!--Put your main content here-->
             </Grid>
             <Rectangle Name="gg" Fill="White" Opacity="0.7" Visibility="{Binding IsWaiting}" />
-            <TextBlock Name="txt" Text="Please Wait" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Name="txt" Text="Please Wait" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Height="38"  Width="188"></TextBlock>
             <!--You could add a 'Please Wait' TextBlock here-->
         </Grid>
 
