@@ -1,0 +1,43 @@
+﻿<Window x:Class="EconomicTracking.AdminMandPassRest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=txtPassword}"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AdminMandatoryPasswordReset Screen" Height="248.211" Width="500"  HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid Margin="10,20,-0.4,0.4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="150*" />
+            <ColumnDefinition Width="79*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Name="txtnewPassd"
+            Grid.Row="1"
+            Text="Create New Passwword" Margin="0,10,6.2,32" Grid.RowSpan="2" />
+        <PasswordBox
+              Grid.Row="1"
+              ToolTipService.ToolTip="Enter New Password"
+              Name="txtPassword" Margin="5,10,0,8" MaxLength="15" Grid.Column="1" />
+        <TextBlock Name="txtConfirmPassd"
+            Grid.Row="2"
+            Text="Confirm New Password" Margin="0,13,6.2,7" />
+        <PasswordBox
+              Grid.Row="2"
+              ToolTipService.ToolTip="Confirm New Password"
+              Name="txtconfirmPassword" Margin="5,6,0,10" MaxLength="15" Grid.Column="1" />
+
+        <Button x:Name="btnSave" Click="btnSave_Click"
+        	IsDefault="True" Content="Save" Background="Transparent"
+        	ToolTipService.ToolTip="Save" Margin="0,10,0,167" Grid.Row="3"  HorizontalAlignment="Left" Width="103" RenderTransformOrigin="1.149,0.406"/>
+        <Button x:Name="btnCancel" Click="btnCancel_Click"
+        	Background="Transparent"
+        	IsCancel="True" BorderBrush="BlueViolet"  Content="Cancel"
+        	ToolTipService.ToolTip="Cancel" Margin="5,10,94,168" Grid.Column="1" Grid.Row="3" Width="auto" RenderTransformOrigin="0.5,0.5"/>
+        <Label Content="Welcome to Password Reset" FontFamily="Arial" FontWeight="Bold" Foreground="Violet" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Width="257" Grid.ColumnSpan="3"/>
+    </Grid>
+</Window>

@@ -36,16 +36,20 @@ namespace EconomicTracking
             base.OnStartup(e);
             LoginScreen win = new LoginScreen();
             win.ShowDialog();
-            if (!win.DialogResult.GetValueOrDefault())
-            {
-                Environment.Exit(0);
-            }
-            else
-            {
-                var frm = new MainWindow();
-                Current.MainWindow = frm;
-                frm.Show();
-            }
+                if (!win.DialogResult.GetValueOrDefault())
+                  {
+                      if (win.txtUserName.Text != "Admin" && win.txtPassd.Text!="Admin") {
+                          Environment.Exit(0);
+                      }
+                  }
+                else
+                {
+                    var frm = new MainWindow();
+                    Current.MainWindow = frm;
+                    frm.Show();
+                }
+
+            
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

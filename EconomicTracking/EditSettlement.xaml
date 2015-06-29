@@ -87,7 +87,6 @@
                 <grid:DataGridTextColumn EditingElementStyle="{StaticResource CellEditStyle}"  Binding="{Binding Rate,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  Width="80" Header="Price"></grid:DataGridTextColumn>
             </grid:DataGrid.Columns>
             <grid:DataGrid.RowValidationRules>
-
             </grid:DataGrid.RowValidationRules>
 
 

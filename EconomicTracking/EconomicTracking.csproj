@@ -221,6 +221,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminMandPassRest.xaml.cs">
+      <DependentUpon>AdminMandPassRest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BOMReports.xaml.cs">
       <DependentUpon>BOMReports.xaml</DependentUpon>
     </Compile>
@@ -288,6 +291,10 @@
     <Compile Include="UploadSalesQty.xaml.cs">
       <DependentUpon>UploadSalesQty.xaml</DependentUpon>
     </Compile>
+    <Page Include="AdminMandPassRest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BOMReports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

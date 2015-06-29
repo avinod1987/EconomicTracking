@@ -75,11 +75,11 @@ namespace EconomicTracking
                           var currencyList = new List<SettlementCurrency>();
                           var commodityList = new List<SettlementCommodity>();
                           var scrapList = new List<SettlementScarp>();
-                          foreach (DataRow dr in dt.Rows)
-                          {
-                              IQueryable<Settlement> t = context.Settlements.Where(x => x.SettlementRef == dr["Settlement Ref"].ToString() && x.CustomerName == dr["Customer Name"].ToString());
-                              context.Settlements.RemoveRange(t);
-                          }
+                          //foreach (DataRow dr in dt.Rows)
+                          //{
+                          //    IQueryable<Settlement> t = context.Settlements.Where(x => x.SettlementRef == dr["Settlement Ref"].ToString() && x.CustomerName == dr["Customer Name"].ToString());
+                          //    context.Settlements.RemoveRange(t);
+                          //}
                           foreach (DataRow row in dt.Rows)
                           {
                               Dispatcher.BeginInvoke(new Action(() =>

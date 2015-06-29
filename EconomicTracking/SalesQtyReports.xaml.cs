@@ -288,14 +288,20 @@ namespace EconomicTracking
         private void chkcus_Checked(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.CheckBox p = (System.Windows.Controls.CheckBox)sender;
-            li.Add(p.Content.ToString());
+            if (!li.Contains(p.Content.ToString()))
+            {
+                li.Add(p.Content.ToString()); Xceed.Wpf.Toolkit.MessageBox.Show(p.Content.ToString());
+            }
 
         }
 
         private void chkcus_Unchecked(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.CheckBox p = (System.Windows.Controls.CheckBox)sender;
-            li.Remove(p.Content.ToString());
+            if (li.Contains(p.Content.ToString()))
+            {
+                li.Add(p.Content.ToString()); Xceed.Wpf.Toolkit.MessageBox.Show(p.Content.ToString());
+            }
         }
         private async void cuscombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

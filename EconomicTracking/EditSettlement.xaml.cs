@@ -40,17 +40,29 @@ namespace EconomicTracking
         }
         private void ConstructAutoCompletionSource()
         {
-
-            this.textBox.AutoSuggestionList.Add("Hello world");
-            this.textBox.AutoSuggestionList.Add("Hey buddy");
-            this.textBox.AutoSuggestionList.Add("Halo world");
-            this.textBox.AutoSuggestionList.Add("apple");
-            this.textBox.AutoSuggestionList.Add("apple tree");
-            this.textBox.AutoSuggestionList.Add("appaaaaa");
-            this.textBox.AutoSuggestionList.Add("arrange");
-            for (int i = 0; i < 100; i++)
+            using (var con = new EconomicsTrackingDbContext()) {
+            con.Materials.ToList().ForEach(x => {
+                this.textBox.AutoSuggestionList.Add(x.MaterialName);  
+            });
+            con.Scraps.ToList().ForEach(x =>
             {
-                this.textBox.AutoSuggestionList.Add("AA" + i);
+                this.textBox1.AutoSuggestionList.Add(x.ScrapName);
+            });
+            con.Currency.ToList().ForEach(x =>
+            {
+                this.textBox2.AutoSuggestionList.Add(x.CurrencyName);
+            });
+            //this.textBox.AutoSuggestionList.Add("Hello world");
+            //this.textBox.AutoSuggestionList.Add("Hey buddy");
+            //this.textBox.AutoSuggestionList.Add("Halo world");
+            //this.textBox.AutoSuggestionList.Add("apple");
+            //this.textBox.AutoSuggestionList.Add("apple tree");
+            //this.textBox.AutoSuggestionList.Add("appaaaaa");
+            //this.textBox.AutoSuggestionList.Add("arrange");
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    this.textBox.AutoSuggestionList.Add("AA" + i);
+            //}
             }
         }
         private async void cbmCustomer_Loaded(object sender, RoutedEventArgs e)

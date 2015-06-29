@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using WPFReportTest;
 using System.Data.Entity;
 using System.Data;
-using WPFReportTest;
 
 namespace EconomicTracking
 {

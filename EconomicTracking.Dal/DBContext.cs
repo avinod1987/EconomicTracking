@@ -38,6 +38,12 @@ namespace EconomicTracking.Dal
 
         public DbSet<OverHeadCode> OverHeadCode { get; set; }
 
+        public DbSet<UserLogin> UserLogin { get; set; }
+
+        public DbSet<MasterLogin> MasterLogin { get; set; }
+
+        public DbSet<ApplicationPassword> ApplicationPassword { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<IncludeMetadataConvention>();

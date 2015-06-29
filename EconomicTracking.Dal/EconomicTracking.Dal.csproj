@@ -97,17 +97,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationPassword.cs" />
     <Compile Include="BillOfMaterial.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerAssembly.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="FinalReport.cs" />
+    <Compile Include="MasterLogin.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesQty.cs" />
     <Compile Include="Scrap.cs" />
     <Compile Include="Settlement.cs" />
+    <Compile Include="UserLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
